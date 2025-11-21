@@ -1,0 +1,85 @@
+/* Página de Convocatorias: contenedor general */
+.page-convocatorias {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+/* Párrafo introductorio debajo del PageHeader */
+.page-convocatorias .intro-text {
+  margin-top: 0.75rem;
+  margin-bottom: 2rem;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: #4a5568; /* gris suave para texto */
+}
+
+/* Tarjetas / secciones (similar a Contacto) */
+.page-convocatorias .card-section {
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 1.8rem 1.6rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+  border: 1px solid #e2e8f0;
+}
+
+/* Títulos de secciones (h2) */
+.page-convocatorias .card-section h2 {
+  font-size: 1.4rem;
+  margin-bottom: 0.9rem;
+  color: #103b5a; /* azul oscuro similar al menú */
+  font-weight: 700;
+}
+
+/* Subtítulos internos (h3) */
+.page-convocatorias .card-section h3 {
+  font-size: 1.05rem;
+  margin-top: 1.1rem;
+  margin-bottom: 0.4rem;
+  color: #0f6e8f; /* azul medio */
+  font-weight: 600;
+}
+
+/* Listas ordenadas y no ordenadas */
+.page-convocatorias .card-section ul,
+.page-convocatorias .card-section ol {
+  margin: 0.4rem 0 0.9rem 1.2rem;
+  padding: 0;
+}
+
+/* Elementos de lista */
+.page-convocatorias .card-section li {
+  margin-bottom: 0.35rem;
+  font-size: 0.96rem;
+  line-height: 1.5;
+  color: #4a5568;
+}
+
+/* Resaltar textos en negrita dentro del contenido */
+.page-convocatorias .card-section strong {
+  color: #0f6e8f;
+  font-weight: 700;
+}
+
+/* Párrafo de cierre */
+.page-convocatorias .closing-text {
+  margin-top: 0.75rem;
+  font-size: 0.95rem;
+  color: #4a5568;
+}
+
+/* Ajuste responsivo para pantallas pequeñas */
+@media (max-width: 768px) {
+  .page-convocatorias {
+    padding: 1.5rem 1rem 3rem;
+  }
+
+  .page-convocatorias .card-section {
+    padding: 1.4rem 1.2rem;
+  }
+
+  .page-convocatorias .card-section h2 {
+    font-size: 1.25rem;
+  }
+}

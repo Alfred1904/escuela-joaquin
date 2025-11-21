@@ -1,0 +1,332 @@
+/* ====== Página Calendario ====== */
+
+.page.page-calendario {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.page-calendario > p {
+  margin-top: 0.75rem;
+  margin-bottom: 1.5rem;
+  color: #4b5563;
+  line-height: 1.6;
+}
+
+/* Contenedor principal: calendario + detalle */
+.calendario-contenedor {
+  display: grid;
+  grid-template-columns: 1.2fr 1.5fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 900px) {
+  .calendario-contenedor {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ====== Tarjeta base reutilizable ====== */
+
+.calendario-panel,
+.calendario-detalle {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1.5rem 1.75rem;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 12px 25px rgba(15, 23, 42, 0.06);
+}
+
+/* ====== Panel del calendario mensual ====== */
+
+.calendario-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.calendario-header h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* Botones de navegación de mes */
+.calendario-header button {
+  border: none;
+  background: #e0f2fe;
+  color: #0f4c81;
+  font-size: 1rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.calendario-header button:hover {
+  background: #bfdbfe;
+  transform: translateY(-1px);
+}
+
+/* Nombres de los días de la semana */
+.calendario-semana-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #0f4c81;
+  margin-bottom: 0.5rem;
+}
+
+.calendario-semana-header span {
+  padding: 0.25rem 0;
+}
+
+/* Cuadrícula de días */
+.calendario-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.35rem;
+}
+
+/* Celda base */
+.calendario-celda {
+  min-height: 3rem;
+  border-radius: 12px;
+  font-size: 0.9rem;
+}
+
+/* Celdas vacías (antes del día 1) */
+.calendario-celda.vacia {
+  background: transparent;
+}
+
+/* Celdas de día */
+.calendario-celda.dia {
+  position: relative;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  color: #111827;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0.45rem 0.5rem;
+  cursor: pointer;
+  transition: background 0.18s ease, border-color 0.18s ease,
+    transform 0.15s ease, box-shadow 0.15s ease, color 0.18s ease;
+}
+
+.calendario-celda.dia:hover {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 15px rgba(15, 23, 42, 0.06);
+}
+
+.calendario-numero-dia {
+  font-weight: 600;
+}
+
+/* Punto indicador cuando hay actividades */
+.calendario-indicador-actividad {
+  position: absolute;
+  right: 6px;
+  bottom: 5px;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: #0ea5e9;
+}
+
+/* Día seleccionado */
+.calendario-celda.dia.seleccionado {
+  background: #0f4c81;
+  border-color: #0f4c81;
+  color: #ffffff;
+  box-shadow: 0 12px 25px rgba(15, 23, 42, 0.18);
+}
+
+.calendario-celda.dia.seleccionado .calendario-indicador-actividad {
+  background: #38bdf8;
+}
+
+/* Día con actividades (sin estar seleccionado) */
+.calendario-celda.dia.con-actividades:not(.seleccionado) {
+  border-color: #38bdf8;
+}
+
+/* ====== Panel de detalle y formulario ====== */
+
+.calendario-detalle h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 0.75rem;
+}
+
+/* Estilo de la fecha debajo del título, si luego la formateas */
+.calendario-detalle h3 span {
+  font-weight: 500;
+  color: #4b5563;
+}
+
+/* Lista de actividades del día */
+.lista-actividades {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
+}
+
+.actividad-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.actividad-item:last-child {
+  border-bottom: none;
+}
+
+.actividad-textos strong {
+  display: block;
+  font-size: 0.95rem;
+  margin-bottom: 0.15rem;
+  color: #111827;
+}
+
+.actividad-textos p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #4b5563;
+}
+
+/* Botones de cada actividad */
+.actividad-botones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+/* ====== Botones (coherentes con el resto de la web) ====== */
+
+.btn-primario,
+.btn-secundario,
+.btn-peligro {
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 0.35rem 0.9rem;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease,
+    transform 0.15s ease;
+  white-space: nowrap;
+}
+
+/* Azul principal tipo “Ruta EA” */
+.btn-primario {
+  background: #0f4c81;
+  color: #ffffff;
+}
+
+.btn-primario:hover {
+  background: #0b3b64;
+  transform: translateY(-1px);
+}
+
+/* Botón secundario borde azul */
+.btn-secundario {
+  background: #ffffff;
+  border: 1px solid #0f4c81;
+  color: #0f4c81;
+}
+
+.btn-secundario:hover {
+  background: #e0f2fe;
+}
+
+/* Botón de eliminar en rojo suave */
+.btn-peligro {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.btn-peligro:hover {
+  background: #fecaca;
+}
+
+/* ====== Formulario de actividad ====== */
+
+.calendario-detalle h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0.75rem 0 0.5rem;
+}
+
+.form-actividad {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.campo-formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.campo-formulario label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+/* Inputs y textarea con estilo similar al formulario de contacto */
+.campo-formulario input,
+.campo-formulario textarea {
+  width: 100%;
+  font-size: 0.9rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  background: #f9fafb;
+  color: #111827;
+  resize: vertical;
+  font-family: inherit;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease,
+    background 0.18s ease;
+}
+
+.campo-formulario input:focus,
+.campo-formulario textarea:focus {
+  outline: none;
+  border-color: #0ea5e9;
+  background: #ffffff;
+  box-shadow: 0 0 0 1px rgba(14, 165, 233, 0.4);
+}
+
+.botones-formulario {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.25rem;
+}
+
+/* Separador suave */
+.calendario-detalle hr {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin: 1rem 0;
+}

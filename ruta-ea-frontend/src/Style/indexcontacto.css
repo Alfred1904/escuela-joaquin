@@ -1,0 +1,129 @@
+/* ================================
+   Sección de contacto
+   ================================ */
+
+.page-contacto {
+  background-color: var(--bg-1, #f7f8f9);
+}
+
+.contacto-section {
+  margin-top: 2rem;
+  padding: 1.5rem 1.75rem;
+  background-color: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.05);
+}
+
+/* Texto introductorio */
+.contacto-intro {
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text, #374151);
+}
+
+/* ================================
+   Bloques de información
+   ================================ */
+
+.contacto-bloque {
+  margin-top: 1.5rem;
+  padding: 1.25rem 1.5rem;
+  background-color: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e0edf3;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.04);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+/* Hover similar a Perfiles/Contenido */
+.contacto-bloque:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent, #0b3a5d);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+  background-color: #e5f7fb;
+}
+
+/* Bloque principal de correo institucional un poco destacado */
+.contacto-bloque-principal {
+  background-color: #ffffff;
+}
+
+/* Texto dentro de los bloques */
+.contacto-texto {
+  margin: 0.15rem 0;
+  font-size: 0.9rem;
+  color: var(--text, #374151);
+}
+
+/* ================================
+   “Pastillas” tipo chip (títulos de bloques)
+   ================================ */
+
+.contacto-chip-titulo,
+.contacto-chip {
+  display: inline-block;
+  padding: 0.3rem 1rem;
+  border-radius: 999px;
+  background-color: #e5f7fb;
+  color: var(--accent, #0b3a5d);
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+/* Subtítulo general de la sección (línea azul debajo) */
+.contacto-subtitulo-seccion {
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent, #0b3a5d);
+  position: relative;
+  display: inline-block;
+}
+
+.contacto-subtitulo-seccion::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.3rem;
+  width: 60%;
+  height: 3px;
+  border-radius: 999px;
+  background-color: var(--accent, #0b3a5d);
+}
+
+/* Sub-encabezados dentro de un bloque (Español / Inglés) */
+.contacto-subheading {
+  margin-top: 0.75rem;
+  margin-bottom: 0.25rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--accent, #0b3a5d);
+}
+
+/* Lista de correos */
+.contacto-lista p {
+  margin: 0.15rem 0;
+  font-size: 0.9rem;
+  color: var(--text, #374151);
+}
+
+/* ================================
+   Responsivo
+   ================================ */
+
+@media (max-width: 640px) {
+  .contacto-section {
+    padding: 1.25rem 1rem;
+  }
+
+  .contacto-bloque {
+    padding: 1rem 1.1rem;
+  }
+}

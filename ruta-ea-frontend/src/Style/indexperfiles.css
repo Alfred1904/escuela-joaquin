@@ -1,0 +1,140 @@
+/* ================================
+  Styles for Perfiles
+  Uses global theme variables defined in `src/index.css` (:root)
+  Falls back to literals where needed to preserve original look.
+  ================================ */
+
+/* ================================
+   Sección de perfiles
+   ================================ */
+
+.perfiles-section {
+  margin-top: 2rem;
+  padding: 1.5rem 1.75rem;
+  background-color: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.05);
+}
+
+/* Texto introductorio de la sección */
+.perfiles-intro {
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text, #374151);
+}
+
+/* Contenedor de todas las tarjetas en cuadrícula */
+.perfiles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+/* ================================
+   Tarjetas individuales de perfil
+   ================================ */
+
+.perfil-card {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 1.25rem 1.5rem;
+  background-color: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e0edf3;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.04);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+/* Efecto al pasar el mouse sobre la tarjeta */
+.perfil-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent, #0b3a5d);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+  background-color: #e5f7fb; /* soft-cyan */
+}
+
+/* ================================
+   Área para la foto profesional
+   ================================ */
+
+.perfil-foto {
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  background: linear-gradient(135deg,#e5f7fb,#ffffff);
+  border: 2px solid #e5f7fb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Texto dentro del área de la foto (mientras no se use <img>) */
+.perfil-foto-texto {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--accent, #0b3a5d);
+}
+
+/* Si luego agregas una imagen real */
+.perfil-foto img {
+  width: 100%;
+  height: 100%;
+  border-radius: 999px;
+  object-fit: cover;
+}
+
+/* ================================
+   Información de cada perfil
+   ================================ */
+
+.perfil-info {
+  flex: 1;
+}
+
+.perfil-titulo {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--accent, #0b3a5d);
+}
+
+/* Líneas de texto (Nombre, correo, especialidad) */
+.perfil-info p {
+  margin: 0.15rem 0;
+  font-size: 0.9rem;
+  color: var(--text, #374151);
+}
+
+/* Etiquetas en negrita dentro de cada línea */
+.perfil-info strong {
+  font-weight: 600;
+  color: var(--accent, #0b3a5d);
+}
+
+/* ================================
+   Ajustes responsivos
+   ================================ */
+
+/* En pantallas pequeñas, las tarjetas se apilan verticalmente */
+@media (max-width: 640px) {
+  .perfiles-section {
+    padding: 1.25rem 1rem;
+  }
+
+  .perfil-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .perfil-foto {
+    margin-bottom: 0.5rem;
+  }
+}
