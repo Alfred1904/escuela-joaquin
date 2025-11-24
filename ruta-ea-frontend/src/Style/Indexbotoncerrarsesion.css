@@ -1,0 +1,16 @@
+/* src/Style/index-auth.css o similar */
+.boton-cerrar-sesion {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  background-color: #b71c1c; /* rojo profundo */
+  color: white;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.boton-cerrar-sesion:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}

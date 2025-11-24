@@ -1,17 +1,23 @@
 // src/components/RutaPrivada.jsx
 import React from "react";
+// import PropTypes from "prop-types";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
 
 const RutaPrivada = ({ children }) => {
-  const { usuario } = useAuth();
+  const { estaAutenticado } = useAuth();
 
-  if (!usuario) {
-    // Si no hay sesión, redirige al login
+  // Si no está autenticado, redirigir al login
+  if (!estaAutenticado) {
     return <Navigate to="/login" replace />;
   }
 
+  // Si sí está autenticado, mostrar el contenido protegido
   return children;
+};
+
+RutaPrivada.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export default RutaPrivada;
