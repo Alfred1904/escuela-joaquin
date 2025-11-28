@@ -1,57 +1,76 @@
-// src/pages/Registro.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
 import "../Style/index-auth.css";
+import { postData } from "../services/api.js";
 
 const Registro = () => {
   const { registrar } = useAuth();
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
-    nombreCompleto: "",
-    usuario: "",
-    email: "",
-    confirmarEmail: "",
-    password: "",
-    confirmarPassword: "",
-    aceptaTerminos: false,
-  });
+  const [nombreCompleto, setNombreCompleto] = useState("");
+  const [usuario, setUsuario] = useState("");
+  const [email, setEmail] = useState("");
+  const [confirmarEmail, setConfirmarEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmarPassword, setConfirmarPassword] = useState("");
+  const [aceptaTerminos, setAceptaTerminos] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, type, value, checked } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-  };
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [role, setRole] = useState("student");
+  const [numTelefono, setNumTelefono] = useState("");
+  const [numCedula, setNumCedula] = useState("");
+  const [fechaNacimiento, setFechaNacimiento] = useState("");
 
-  const handleSubmit = (e) => {
+  const [enviando, setEnviando] = useState(false);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (formData.email !== formData.confirmarEmail) {
+    if (email !== confirmarEmail) {
       alert("El correo y la confirmación no coinciden.");
       return;
     }
-    if (formData.password !== formData.confirmarPassword) {
+    if (password !== confirmarPassword) {
       alert("La contraseña y su confirmación no coinciden.");
       return;
     }
-    if (!formData.aceptaTerminos) {
+    if (!aceptaTerminos) {
       alert("Debes aceptar los términos y condiciones.");
       return;
     }
 
-    // Guardamos datos básicos del usuario
-    registrar({
-      nombreCompleto: formData.nombreCompleto,
-      usuario: formData.usuario,
-      email: formData.email,
-      password: formData.password,
-    });
+    try {
+      setEnviando(true);
 
-    alert("Registro completado. Ahora puedes iniciar sesión.");
-    navigate("/login");
+      const objUsuario = {
+        first_name: firstName,
+        last_name: lastName,
+        username: usuario,
+        email: email,
+        password: password,
+        role: role,
+        num_telefono: numTelefono,
+        num_cedula: numCedula,
+        fecha_nacimiento: fechaNacimiento,
+      };
+
+      const peticion = await postData("usuario/", objUsuario);
+      console.log("Usuario creado en el backend:", peticion);
+
+      alert("Registro completado. Ahora puedes iniciar sesión.");
+      navigate("/login");
+    } catch (error) {
+      console.error(error);
+      if (error.data) {
+        alert("Error al registrar en el servidor: " + JSON.stringify(error.data));
+      } else {
+        alert("Ocurrió un error al registrar el usuario en el servidor.");
+      }
+    } finally {
+      setEnviando(false);
+    }
   };
 
   return (
@@ -76,27 +95,41 @@ const Registro = () => {
         <div className="auth-form-wrapper">
           <form className="auth-form" onSubmit={handleSubmit}>
             <div className="auth-row">
-              <label className="auth-field">
-                <div className="field-label">Nombre completo</div>
-                <input
-                  type="text"
-                  name="nombreCompleto"
-                  value={formData.nombreCompleto}
-                  onChange={handleChange}
-                  required
-                  placeholder="Nombre y apellidos"
-                />
-              </label>
+         
 
               <label className="auth-field">
                 <div className="field-label">Nombre de usuario</div>
                 <input
                   type="text"
                   name="usuario"
-                  value={formData.usuario}
-                  onChange={handleChange}
+                  value={usuario}
+                  onChange={(e) => setUsuario(e.target.value)}
                   required
                   placeholder="Ej: jgarcia.monge"
+                />
+              </label>
+            </div>
+
+            <div className="auth-row">
+              <label className="auth-field">
+                <div className="field-label">Nombre (first_name)</div>
+                <input
+                  type="text"
+                  name="first_name"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  placeholder="Nombre"
+                />
+              </label>
+
+              <label className="auth-field">
+                <div className="field-label">Apellidos (last_name)</div>
+                <input
+                  type="text"
+                  name="last_name"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  placeholder="Apellidos"
                 />
               </label>
             </div>
@@ -107,8 +140,8 @@ const Registro = () => {
                 <input
                   type="email"
                   name="email"
-                  value={formData.email}
-                  onChange={handleChange}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                   placeholder="tu_correo@example.com"
                 />
@@ -119,8 +152,8 @@ const Registro = () => {
                 <input
                   type="email"
                   name="confirmarEmail"
-                  value={formData.confirmarEmail}
-                  onChange={handleChange}
+                  value={confirmarEmail}
+                  onChange={(e) => setConfirmarEmail(e.target.value)}
                   required
                   placeholder="Repite tu correo"
                 />
@@ -133,8 +166,8 @@ const Registro = () => {
                 <input
                   type="password"
                   name="password"
-                  value={formData.password}
-                  onChange={handleChange}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                   minLength={8}
                   placeholder="Mínimo 8 caracteres"
@@ -146,8 +179,8 @@ const Registro = () => {
                 <input
                   type="password"
                   name="confirmarPassword"
-                  value={formData.confirmarPassword}
-                  onChange={handleChange}
+                  value={confirmarPassword}
+                  onChange={(e) => setConfirmarPassword(e.target.value)}
                   required
                   minLength={8}
                   placeholder="Repite la contraseña"
@@ -155,12 +188,59 @@ const Registro = () => {
               </label>
             </div>
 
+            <div className="auth-row">
+              <label className="auth-field">
+                <div className="field-label">Número de teléfono</div>
+                <input
+                  type="tel"
+                  name="num_telefono"
+                  value={numTelefono}
+                  onChange={(e) => setNumTelefono(e.target.value)}
+                  placeholder="Ej: 8888-8888"
+                />
+              </label>
+
+              <label className="auth-field">
+                <div className="field-label">Número de cédula</div>
+                <input
+                  type="text"
+                  name="num_cedula"
+                  value={numCedula}
+                  onChange={(e) => setNumCedula(e.target.value)}
+                  placeholder="Ej: 1-1111-1111"
+                />
+              </label>
+            </div>
+
+            <div className="auth-row">
+              <label className="auth-field">
+                <div className="field-label">Fecha de nacimiento</div>
+                <input
+                  type="date"
+                  name="fecha_nacimiento"
+                  value={fechaNacimiento}
+                  onChange={(e) => setFechaNacimiento(e.target.value)}
+                />
+              </label>
+
+              <label className="auth-field">
+                <div className="field-label">Rol</div>
+                <select
+                  name="role"
+                  value={role}
+                  onChange={(e) => setRole(e.target.value)}
+                >
+                  <option value="student">Estudiante</option>
+                </select>
+              </label>
+            </div>
+
             <label className="auth-checkbox">
               <input
                 type="checkbox"
                 name="aceptaTerminos"
-                checked={formData.aceptaTerminos}
-                onChange={handleChange}
+                checked={aceptaTerminos}
+                onChange={(e) => setAceptaTerminos(e.target.checked)}
                 aria-label="Acepto términos"
               />
               <span>
@@ -169,8 +249,8 @@ const Registro = () => {
               </span>
             </label>
 
-            <button type="submit" className="auth-button">
-              REGISTRARME
+            <button type="submit" className="auth-button" disabled={enviando}>
+              {enviando ? "ENVIANDO..." : "REGISTRARME"}
             </button>
           </form>
 

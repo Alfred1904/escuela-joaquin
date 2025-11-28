@@ -16,8 +16,6 @@ const RutaPrivada = ({ children }) => {
   return children;
 };
 
-RutaPrivada.propTypes = {
-  children: PropTypes.node.isRequired,
-};
+// PropTypes removed to avoid extra dev dependency requirement.
 
 export default RutaPrivada;
