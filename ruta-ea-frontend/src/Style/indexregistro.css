@@ -1,0 +1,230 @@
+/* ============================
+   LAYOUT GENERAL REGISTRO
+   - GUÍA: estilos para la página de registro/login tipo “card” centrada.
+   - Estructura: .auth-page (fondo) -> .auth-card (tarjeta) -> intro + formulario.
+   ============================ */
+
+.auth-page {
+  min-height: 100vh; /* ocupa toda la altura de la pantalla */
+  padding: 3rem 1.5rem; /* espacio alrededor de la tarjeta (desktop) */
+  background: #f3f6fb;              /* mismo gris claro del sitio */
+  display: flex; /* centra la tarjeta */
+  align-items: center; /* centra verticalmente */
+  justify-content: center; /* centra horizontalmente */
+  /* GUÍA: si quieres que quede más arriba y menos centrado, ajusta align-items. */
+}
+
+/* Tarjeta principal (dos columnas: texto + formulario)
+   - GUÍA: grid de 2 columnas; izquierda intro, derecha formulario. */
+.auth-card {
+  width: 100%; /* toma el ancho disponible hasta el máximo */
+  max-width: 980px; /* limita ancho para que no se vea “gigante” */
+  background: #ffffff; /* tarjeta blanca */
+  border-radius: 24px; /* bordes redondeados */
+  display: grid; /* layout en grid para dividir columnas */
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.2fr); /* columna izq ligeramente más pequeña */
+  gap: 2rem; /* separación entre columnas */
+  padding: 2.2rem 2.5rem; /* padding interno */
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12); /* sombra (elevación) */
+  border: 1px solid rgba(148, 163, 184, 0.4); /* borde sutil */
+}
+
+/* ============================
+   COLUMNA IZQUIERDA (INTRO)
+   - GUÍA: bloque para mensaje de bienvenida, instrucciones, logo, etc.
+   ============================ */
+
+.auth-intro {
+  display: flex; /* layout vertical */
+  flex-direction: column;
+  gap: 1rem; /* separación entre elementos (logo/título/texto) */
+  padding-right: 1rem; /* aire para que el texto no pegue con la columna del form */
+}
+
+.auth-logo {
+  width: 56px; /* tamaño del “logo” circular */
+  height: 56px;
+  border-radius: 999px; /* círculo */
+  background: #0c7ac9;             /* azul Ruta EA */
+  display: flex; /* centra el icono/letras dentro */
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem; /* separa del título */
+}
+
+.auth-logo-icon {
+  color: #ffffff; /* texto blanco */
+  font-weight: 700; /* destacado */
+  font-size: 1.1rem;
+  letter-spacing: 0.06em; /* separación entre letras (look “logo”) */
+}
+
+.auth-title {
+  font-size: 1.6rem; /* título principal */
+  font-weight: 700;
+  color: #102a43; /* azul oscuro */
+  margin: 0; /* quita el margen default */
+}
+
+.auth-subtitle {
+  font-size: 0.95rem; /* texto de apoyo */
+  color: #4b5563; /* gris */
+  line-height: 1.6; /* legibilidad */
+  margin: 0.2rem 0; /* margen controlado */
+}
+
+/* ============================
+   COLUMNA DERECHA (FORMULARIO)
+   - GUÍA: contenedor del form; centra el bloque dentro de la tarjeta.
+   ============================ */
+
+.auth-form-wrapper {
+  display: flex; /* permite centrar verticalmente el form */
+  flex-direction: column;
+  justify-content: center; /* centra el form en la columna derecha */
+}
+
+.auth-form {
+  display: flex; /* estructura del form en columna */
+  flex-direction: column;
+  gap: 1rem; /* separación entre filas/campos */
+}
+
+/* Filas del formulario (dos columnas)
+   - GUÍA: cada .auth-row normalmente contiene 1 o 2 campos. */
+.auth-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr)); /* 2 columnas iguales */
+  gap: 1rem; /* separación entre campos */
+}
+
+/* Cuando solo hay un campo dentro de la fila,
+   igual se respeta el mismo gap
+   - GUÍA: hace que ese campo ocupe toda la fila (ancho completo). */
+.auth-row > .auth-field:only-child {
+  grid-column: 1 / -1; /* ocupa desde la primera hasta la última columna */
+}
+
+/* Campo individual (label + input/select) */
+.auth-field {
+  display: flex;
+  flex-direction: column; /* label arriba, input abajo */
+  gap: 0.35rem; /* separación label/campo */
+}
+
+.field-label {
+  font-size: 0.85rem; /* label pequeño */
+  font-weight: 600; /* resaltado */
+  color: #374151; /* gris oscuro */
+}
+
+/* Inputs y selects
+   - GUÍA: estilo consistente con el resto del sitio (pill + fondo suave). */
+.auth-field input,
+.auth-field select {
+  width: 100%; /* full width */
+  padding: 0.6rem 0.9rem; /* tamaño cómodo */
+  border-radius: 999px; /* pill */
+  border: 1px solid rgba(148, 163, 184, 0.9); /* borde visible pero suave */
+  font-size: 0.9rem;
+  outline: none; /* se reemplaza por focus custom */
+  background: #f9fafb; /* fondo gris muy claro */
+  transition: border-color 0.18s ease, box-shadow 0.18s ease,
+    background-color 0.18s ease; /* transiciones suaves */
+}
+
+/* Focus: indica campo activo */
+.auth-field input:focus,
+.auth-field select:focus {
+  border-color: #0c7ac9; /* azul marca */
+  box-shadow: 0 0 0 2px rgba(12, 122, 201, 0.18); /* ring suave */
+  background: #ffffff; /* sube contraste */
+}
+
+/* Checkbox de términos
+   - GUÍA: fila para aceptar términos/condiciones; alinea checkbox con texto. */
+.auth-checkbox {
+  display: flex;
+  align-items: flex-start; /* alinea arriba (útil cuando el texto es largo) */
+  gap: 0.45rem; /* espacio checkbox/texto */
+  margin-top: 0.5rem; /* separa de los inputs anteriores */
+  font-size: 0.85rem;
+  color: #4b5563;
+}
+
+.auth-checkbox input[type="checkbox"] {
+  margin-top: 0.15rem; /* ajusta visualmente el checkbox con la primera línea del texto */
+}
+
+/* Botón principal
+   - GUÍA: acción principal del registro (Crear cuenta / Registrarme). */
+.auth-button {
+  margin-top: 0.75rem; /* separa del último campo */
+  padding: 0.7rem 1.6rem; /* tamaño del botón */
+  border-radius: 999px; /* pill */
+  border: none; /* botón sólido */
+  background: #0c7ac9; /* azul principal */
+  color: #ffffff; /* texto blanco */
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  align-self: flex-start; /* en desktop no ocupa todo el ancho */
+  transition: background 0.18s ease, transform 0.12s ease,
+    box-shadow 0.18s ease; /* hover/active */
+}
+
+/* Hover solo si no está disabled */
+.auth-button:hover:not(:disabled) {
+  background: #095b95; /* azul más oscuro */
+  box-shadow: 0 8px 18px rgba(12, 122, 201, 0.35); /* elevación */
+}
+
+/* Active: sensación de click */
+.auth-button:active:not(:disabled) {
+  transform: scale(0.98); /* micro “presión” */
+}
+
+/* Disabled: reduce intensidad y bloquea cursor */
+.auth-button:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+
+/* Texto al pie
+   - GUÍA: típicamente “¿Ya tienes cuenta? Inicia sesión” u otro mensaje. */
+.auth-footer-text {
+  margin-top: 1rem; /* separa del botón */
+  font-size: 0.85rem; /* texto pequeño */
+  color: #6b7280; /* gris tenue */
+}
+
+/* ============================
+   RESPONSIVE
+   - GUÍA: en pantallas pequeñas se vuelve 1 columna y el botón pasa a full width.
+   ============================ */
+
+@media (max-width: 900px) {
+  .auth-page {
+    padding: 2.5rem 1.2rem; /* menos padding alrededor en móvil */
+  }
+
+  .auth-card {
+    grid-template-columns: 1fr; /* apila intro + formulario */
+    padding: 1.8rem 1.6rem; /* reduce padding interno */
+    row-gap: 1.6rem; /* separación vertical entre bloques */
+  }
+
+  .auth-intro {
+    padding-right: 0; /* ya no hay columna a la derecha, entonces no hace falta */
+  }
+
+  .auth-row {
+    grid-template-columns: 1fr; /* los campos pasan a 1 columna */
+  }
+
+  .auth-button {
+    width: 100%; /* botón full width */
+    text-align: center; /* texto centrado */
+    justify-content: center; /* por si luego agregas iconos, centra contenido */
+  }
+}

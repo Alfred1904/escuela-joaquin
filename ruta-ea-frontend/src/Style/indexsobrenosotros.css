@@ -1,0 +1,87 @@
+/* ============================
+   SECCIÓN SOBRE NOSOTROS
+   - GUÍA: Estilos para la página/sección “Sobre Nosotros”.
+   - Objetivo visual: panel grande gris claro + bloques blancos tipo “artículo” para lectura.
+   ============================ */
+
+.sobre-section {
+  max-width: 1100px; /* limita el ancho para que el texto sea legible */
+  margin: 0 auto 3rem; /* centra el contenedor y deja espacio abajo */
+  padding: 2.4rem 2rem 3rem; /* espacio interno (arriba/lados/abajo) */
+  background: rgba(245, 247, 251, 0.95); /* panel gris claro semitransparente */
+  border-radius: 26px; /* redondeo grande tipo “panel” */
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.06); /* sombra suave */
+  border: 1px solid rgba(148, 163, 184, 0.45); /* borde sutil para delimitar */
+  /* GUÍA: este panel funciona como “fondo” del artículo; dentro van los bloques blancos. */
+}
+
+/* Título principal de la sección
+   - GUÍA: aplica solo al h2 que es hijo directo de .sobre-section (no afecta h2 anidados). */
+.sobre-section > h2 {
+  font-size: 1.5rem; /* tamaño del título principal */
+  font-weight: 700; /* semibold fuerte */
+  color: #102a43; /* azul oscuro */
+  margin-bottom: 1.8rem; /* separa el título del primer bloque */
+}
+
+/* Cada bloque numerado del artículo
+   - GUÍA: cada .sobre-bloque puede ser un apartado (1., 2., 3...) con su propio h3 + párrafos. */
+.sobre-bloque {
+  background: #ffffff; /* tarjeta blanca para contraste */
+  border-radius: 20px; /* redondeo consistente con el diseño */
+  padding: 1.6rem 1.8rem 1.7rem; /* padding cómodo para lectura */
+  margin-bottom: 1.4rem; /* separación entre bloques */
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.04); /* sombra ligera (menos que el panel) */
+  border: 1px solid rgba(148, 163, 184, 0.35); /* borde tenue */
+  /* GUÍA: si un bloque se ve muy “pesado”, reduce sombra o baja el border alpha. */
+}
+
+/* Título de cada bloque (1., 2., 3., etc.)
+   - GUÍA: el h3 representa el encabezado del apartado dentro del bloque. */
+.sobre-bloque h3 {
+  font-size: 1.1rem; /* un poco más grande que el texto normal */
+  font-weight: 700; /* resalta el título del apartado */
+  color: #0b3b63; /* azul acorde al tema */
+  margin-bottom: 0.9rem; /* separa el título del primer párrafo */
+}
+
+/* Párrafos del artículo
+   - GUÍA: pensado para lectura: buen line-height y color suave. */
+.sobre-bloque p {
+  font-size: 0.95rem; /* tamaño ligeramente menor que 1rem para estilo “artículo” */
+  line-height: 1.75; /* altura de línea cómoda para párrafos largos */
+  color: #4b5563; /* gris medio (no tan oscuro para que no canse) */
+  margin-bottom: 0.7rem; /* separación entre párrafos */
+}
+
+/* Énfasis para títulos de obras y conceptos
+   - GUÍA: aplica a <em> dentro del bloque (títulos, nombres de obras, términos importantes). */
+.sobre-bloque em {
+  font-style: italic; /* estilo de énfasis */
+  color: #0c4f84; /* azul para destacar sin “gritar” */
+}
+
+/* Separación más amplia antes del último párrafo de cada bloque (opcional)
+   - GUÍA: evita que el último párrafo deje margen extra al final de la card. */
+.sobre-bloque p:last-of-type {
+  margin-bottom: 0; /* quita el espacio final para que la card se vea más “cerrada” */
+}
+
+/* ============================
+   VERSION LECTURA ANCHA (DESKTOP)
+   - GUÍA: ajustes solo para pantallas grandes (mejor experiencia de lectura).
+   ============================ */
+
+@media (min-width: 1024px) {
+  /* Puedes hacer que el texto ocupe un ancho cómodo dentro del bloque
+     - GUÍA: aquí se aumenta padding para que se sienta “más editorial”. */
+  .sobre-bloque {
+    padding: 1.9rem 2.1rem 2rem; /* más espacio en desktop */
+  }
+
+  /* Limita el ancho del texto para que no quede una línea demasiado larga
+     - GUÍA: 60rem ≈ 960px (dependiendo del font-size), típico de lectura cómoda. */
+  .sobre-bloque p {
+    max-width: 60rem;
+  }
+}

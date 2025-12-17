@@ -1,140 +1,213 @@
-/* ================================
-  Styles for Perfiles
-  Uses global theme variables defined in `src/index.css` (:root)
-  Falls back to literals where needed to preserve original look.
-  ================================ */
+/* ===========================
+   Estilos generales de página
+   - GUÍA: Esta hoja da estilo a la vista de Perfiles (panel, formulario y listados).
+   - En general: fondo claro + tarjetas blancas con sombra suave.
+   =========================== */
 
-/* ================================
-   Sección de perfiles
-   ================================ */
+.page-panel {
+  background: #f5f7fb; /* fondo gris muy claro para toda la página */
+  min-height: 100vh; /* asegura que el fondo cubra toda la pantalla */
+  padding: 2rem 1.5rem 3rem; /* espacio interno (arriba/lados/abajo) */
+  /* GUÍA: si tu navbar/footer tienen altura fija, aquí puedes ajustar padding. */
+}
 
 .perfiles-section {
-  margin-top: 2rem;
-  padding: 1.5rem 1.75rem;
-  background-color: #ffffff;
-  border-radius: 18px;
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.05);
+  max-width: 1100px; /* limita el ancho para que el contenido sea legible */
+  margin: 0 auto; /* centra el contenido */
 }
 
-/* Texto introductorio de la sección */
+/* Texto introductorio bajo el título de la página
+   - GUÍA: se usa como descripción corta antes del formulario. */
 .perfiles-intro {
-  margin-bottom: 1.5rem;
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: var(--text, #374151);
+  margin-top: 0.75rem; /* separa del título */
+  margin-bottom: 1.5rem; /* separa del formulario */
+  color: #4b5563; /* gris medio */
+  font-size: 0.95rem; /* tamaño cómodo */
+  line-height: 1.6; /* lectura */
 }
 
-/* Contenedor de todas las tarjetas en cuadrícula */
-.perfiles-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.5rem;
+/* ===========================
+   Tarjeta principal: foto + formulario
+   - GUÍA: “card” grande que contiene la foto (izquierda) y el form (derecha).
+   =========================== */
+
+.perfil-form-wrapper {
+  display: flex; /* layout en fila: foto + formulario */
+  gap: 1.75rem; /* separación entre columnas */
+  align-items: flex-start; /* alinea arriba para que la foto no se centre raro */
+  background: #ffffff; /* tarjeta blanca */
+  border-radius: 18px; /* bordes redondeados */
+  border: 1px solid #e2e8f0; /* borde suave */
+  padding: 1.75rem 1.75rem 2rem; /* padding interno */
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06); /* sombra ligera */
+  margin-bottom: 2.5rem; /* separa del bloque de listados */
+  /* GUÍA: en móvil normalmente conviene pasar esto a columna con media query. */
 }
 
-/* ================================
-   Tarjetas individuales de perfil
-   ================================ */
-
-.perfil-card {
-  display: flex;
-  gap: 1rem;
-  align-items: flex-start;
-  padding: 1.25rem 1.5rem;
-  background-color: #ffffff;
-  border-radius: 16px;
-  border: 1px solid #e0edf3;
-  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.04);
-  transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease,
-    border-color 0.15s ease,
-    background-color 0.15s ease;
-}
-
-/* Efecto al pasar el mouse sobre la tarjeta */
-.perfil-card:hover {
-  transform: translateY(-2px);
-  border-color: var(--accent, #0b3a5d);
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
-  background-color: #e5f7fb; /* soft-cyan */
-}
-
-/* ================================
-   Área para la foto profesional
-   ================================ */
-
+/* Columna izquierda: foto profesional (círculo)
+   - GUÍA: placeholder para foto o iniciales del usuario. */
 .perfil-foto {
-  width: 80px;
-  height: 80px;
-  flex-shrink: 0;
-  border-radius: 999px;
-  background: linear-gradient(135deg,#e5f7fb,#ffffff);
-  border: 2px solid #e5f7fb;
-  display: flex;
+  flex: 0 0 160px; /* ancho fijo (no crece, no se encoge) */
+  display: flex; /* centra el texto dentro del círculo */
   align-items: center;
   justify-content: center;
-  text-align: center;
+  min-height: 140px; /* asegura “cuerpo” suficiente visualmente */
+  border-radius: 999px; /* forma circular */
+  background: #e5f5fb; /* azul muy claro (coherente con chips) */
+  color: #0f4f75; /* azul texto */
+  font-weight: 600; /* resaltado */
+  text-align: center; /* centra el texto */
+  padding: 1rem; /* padding para que el texto no pegue a los bordes */
 }
 
-/* Texto dentro del área de la foto (mientras no se use <img>) */
 .perfil-foto-texto {
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: var(--accent, #0b3a5d);
+  font-size: 0.9rem; /* texto interno del círculo */
 }
 
-/* Si luego agregas una imagen real */
-.perfil-foto img {
-  width: 100%;
-  height: 100%;
-  border-radius: 999px;
-  object-fit: cover;
+/* Columna derecha: formulario
+   - GUÍA: contenedor que ocupa el resto del espacio disponible. */
+.perfil-form {
+  flex: 1; /* el form se expande para llenar el espacio */
 }
 
-/* ================================
-   Información de cada perfil
-   ================================ */
-
-.perfil-info {
-  flex: 1;
+/* Fila de formulario (label + input)
+   - GUÍA: cada “row” suele envolver un campo completo. */
+.perfil-form-row {
+  margin-bottom: 1rem; /* separación entre campos */
 }
 
-.perfil-titulo {
-  margin: 0 0 0.5rem 0;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--accent, #0b3a5d);
-}
-
-/* Líneas de texto (Nombre, correo, especialidad) */
-.perfil-info p {
-  margin: 0.15rem 0;
+/* Label general
+   - GUÍA: se usa como wrapper para el texto del label + el input/select. */
+.perfil-label {
+  display: flex; /* layout en columna */
+  flex-direction: column;
   font-size: 0.9rem;
-  color: var(--text, #374151);
+  color: #374151; /* gris oscuro */
 }
 
-/* Etiquetas en negrita dentro de cada línea */
-.perfil-info strong {
+/* Texto fuerte dentro del label
+   - GUÍA: el “título” del campo (ej: Nombre, Correo, etc.). */
+.perfil-label-strong {
+  font-weight: 600; /* resalta */
+  margin-bottom: 0.35rem; /* separa del input */
+  color: #0b2b4a; /* azul oscuro similar al header */
+}
+
+/* Inputs y selects
+   - GUÍA: estilos base para campos editables del formulario. */
+.perfil-input,
+.perfil-select {
+  font-size: 0.9rem; /* tamaño del texto */
+  padding: 0.55rem 0.7rem; /* tamaño del campo */
+  border-radius: 10px; /* redondeo */
+  border: 1px solid #cbd5e1; /* borde gris claro */
+  background: #ffffff; /* fondo blanco */
+  outline: none; /* se reemplaza con focus custom */
+  transition: border-color 0.15s ease, box-shadow 0.15s ease,
+    background-color 0.15s ease; /* animación suave */
+}
+
+/* Placeholder del input */
+.perfil-input::placeholder {
+  color: #9ca3af; /* gris tenue */
+}
+
+/* Focus: muestra al usuario dónde está escribiendo */
+.perfil-input:focus,
+.perfil-select:focus {
+  border-color: #0f9bd7; /* azul acento */
+  box-shadow: 0 0 0 2px rgba(15, 155, 215, 0.15); /* ring suave */
+}
+
+/* Botón principal
+   - GUÍA: botón para “Guardar/Registrar/Actualizar” perfil. */
+.perfil-boton {
+  margin-top: 0.5rem; /* separa del último campo */
+  display: inline-flex; /* centra texto y permite iconos */
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 1.4rem; /* tamaño cómodo */
+  border-radius: 999px; /* pill */
+  border: none; /* botón sólido */
+  background: #0b3455; /* azul oscuro de navbar */
+  color: #ffffff;
   font-weight: 600;
-  color: var(--accent, #0b3a5d);
+  font-size: 0.9rem;
+  cursor: pointer; /* indica interacción */
+  transition: background 0.15s ease, box-shadow 0.15s ease,
+    transform 0.05s ease; /* hover/active suaves */
 }
 
-/* ================================
-   Ajustes responsivos
-   ================================ */
-
-/* En pantallas pequeñas, las tarjetas se apilan verticalmente */
-@media (max-width: 640px) {
-  .perfiles-section {
-    padding: 1.25rem 1rem;
-  }
-
-  .perfil-card {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .perfil-foto {
-    margin-bottom: 0.5rem;
-  }
+/* Hover: elevación visual */
+.perfil-boton:hover {
+  background: #09273f; /* más oscuro */
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.3); /* sombra más marcada */
 }
+
+/* Active: sensación de “click” */
+.perfil-boton:active {
+  transform: translateY(1px); /* baja 1px */
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.25);
+}
+
+/* ===========================
+   Listados de perfiles registrados
+   - GUÍA: bloque donde se muestran perfiles agrupados (por grado, etc.).
+   =========================== */
+
+.perfiles-registrados {
+  max-width: 1100px; /* mismo ancho que el panel principal */
+  margin: 0 auto;
+  margin-top: 1.5rem; /* separación del contenido anterior */
+  background: #ffffff; /* tarjeta blanca */
+  border-radius: 18px;
+  border: 1px solid #e2e8f0; /* borde suave */
+  padding: 1.75rem 1.75rem 2rem; /* padding interno */
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06); /* sombra ligera */
+}
+
+/* Títulos dentro del bloque de listados
+   - GUÍA: encabezados internos tipo “Perfiles registrados” o similar. */
+.perfiles-registrados h5 {
+  margin: 0 0 0.75rem; /* separa del contenido */
+  font-size: 1rem;
+  color: #0b2b4a; /* azul oscuro */
+}
+
+/* Grupo por grado
+   - GUÍA: contenedor para agrupar perfiles por categoría (ej: 7°, 8°, 9°). */
+.grupo-grado {
+  margin-bottom: 1.25rem; /* separación entre grupos */
+}
+
+/* Título del grupo (ej: “Sétimo”) */
+.grupo-grado > strong {
+  display: inline-block; /* permite aplicar borde inferior */
+  margin-bottom: 0.3rem; /* separa de la lista */
+  padding-bottom: 0.15rem; /* aire para el subrayado */
+  border-bottom: 3px solid #0f9bd7; /* subrayado azul acento */
+  color: #0b2b4a; /* azul oscuro */
+}
+
+/* Lista simple
+   - GUÍA: lista sin viñetas, estilo “lista limpia”. */
+.perfiles-registrados ul {
+  list-style: none; /* quita bullets */
+  padding-left: 0; /* quita indentación */
+  margin: 0.15rem 0 0.5rem; /* control de espacios */
+}
+
+/* Ítem de la lista: un perfil
+   - GUÍA: el flex ayuda a alinear nombre + acciones (editar/borrar) si existen. */
+.perfiles-registrados li {
+  font-size: 0.9rem;
+  color: #374151; /* gris oscuro */
+  padding: 0.25rem 0; /* altura respirable */
+  display: flex; /* alinea contenido en fila */
+  align-items: center; /* centra verticalmente */
+  flex-wrap: wrap; /* permite que baje en pantallas pequeñas */
+}
+
+/* Botón/enlace "Editar"
+   - GUÍA: aquí normalmente seguirían estilos tipo .btn-editar o .perfil-editar.
+   - No se incluye porque el fragmento termina en este comentario. */

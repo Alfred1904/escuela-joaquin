@@ -1,88 +1,46 @@
-// src/context/AuthContext.jsx
 import React, {
   createContext,
   useContext,
   useEffect,
   useState,
-} from "react";
-import PropTypes from "prop-types";
+} from "react"; // React + hooks para crear un contexto global de autenticación
 
+// Crea el contexto de autenticación
+// - El valor inicial es null para indicar “sin provider” o “sin sesión”
 const AuthContext = createContext(null);
 
-// 🔐 Llaves usadas en localStorage
-const LS_REGISTRO = "usuarioRutaEA";          // Datos de registro (email, password, etc.)
-const LS_SESSION = "usuarioRutaEA_session";   // Usuario autenticado
-const LS_TOKEN = "usuarioRutaEA_token";       // Token "simulado" de autenticación
-
 export const AuthProvider = ({ children }) => {
+  // Estado del usuario autenticado (puede ser objeto con datos del usuario)
   const [usuario, setUsuario] = useState(null);
+
+  // Estado del token (si existe, se considera sesión activa)
   const [token, setToken] = useState(null);
 
   // 🔧 Cargar sesión al inicio (si existe)
+  // Este useEffect corre 1 vez al montar la app ([])
+  // - Lee el token almacenado en localStorage
+  // - Si existe, lo setea en el estado para reactivar sesión
   useEffect(() => {
     try {
-      const tokenGuardado = localStorage.getItem(LS_TOKEN);
-      const sesionGuardada = localStorage.getItem(LS_SESSION);
+      const tokenGuardado = localStorage.getItem("access_token");
 
       // Solo iniciamos sesión automática si hay token y datos de sesión
-      if (tokenGuardado && sesionGuardada) {
+      // Nota: aquí únicamente recuperas el token; el usuario queda null
+      // Si quieres persistir usuario, normalmente también guardas y recuperas su info.
+      if (tokenGuardado) {
         setToken(tokenGuardado);
-        setUsuario(JSON.parse(sesionGuardada));
       }
     } catch (e) {
+      // Si el navegador bloquea localStorage o hay error de lectura
       console.warn("Error leyendo sesión de localStorage", e);
     }
   }, []);
 
-  // 🔐 Generar un token simple (simulado, sin backend)
-  const generarToken = () =>
-    `token-${Date.now()}-${Math.random().toString(36).slice(2)}`;
-
-  // 📝 Registrar usuario (guardar datos para futuros inicios de sesión)
-  const registrar = (datosUsuario) => {
-    try {
-      // Guardar datos de registro
-      localStorage.setItem(LS_REGISTRO, JSON.stringify(datosUsuario));
-
-      // (Opcional) Iniciar sesión automáticamente tras registrar
-      const nuevoToken = generarToken();
-      setUsuario(datosUsuario);
-      setToken(nuevoToken);
-
-      localStorage.setItem(LS_SESSION, JSON.stringify(datosUsuario));
-      localStorage.setItem(LS_TOKEN, nuevoToken);
-    } catch (e) {
-      console.warn("No se pudo guardar el registro en localStorage", e);
-    }
-  };
-
-  // 🔓 Iniciar sesión: firma iniciarSesion(email, password) → true/false
-  const iniciarSesion = (email, password) => {
-    try {
-      const guardado = localStorage.getItem(LS_REGISTRO);
-      if (!guardado) return false;
-
-      const datos = JSON.parse(guardado);
-
-      if (datos.email === email && datos.password === password) {
-        const nuevoToken = generarToken();
-        setUsuario(datos);
-        setToken(nuevoToken);
-
-        localStorage.setItem(LS_SESSION, JSON.stringify(datos));
-        localStorage.setItem(LS_TOKEN, nuevoToken);
-
-        return true;
-      }
-
-      return false;
-    } catch (e) {
-      console.warn("Error verificando credenciales", e);
-      return false;
-    }
-  };
-
   // 🚪 Cerrar sesión (se mantiene el registro, se borra solo la sesión)
+  // - Limpia el estado en memoria (usuario y token)
+  // - Intenta borrar claves en localStorage
+  // Nota: LS_SESSION y LS_TOKEN deben existir como constantes en algún lugar,
+  // o esto lanzará error si no están definidas.
   const cerrarSesion = () => {
     setUsuario(null);
     setToken(null);
@@ -95,19 +53,21 @@ export const AuthProvider = ({ children }) => {
   };
 
   // ✅ Estado de autenticación (true si hay token)
+  // - Convierte token a booleano (null/"" => false, string => true)
   const estaAutenticado = !!token;
 
   return (
+    // Provider: expone valores y funciones a toda la app
+    // Cualquier componente dentro de AuthProvider puede usar useAuth()
     <AuthContext.Provider
       value={{
-        usuario,
-        token,
-        registrar,
-        iniciarSesion,
-        cerrarSesion,
-        estaAutenticado,
+        usuario,          // datos del usuario (si se setea desde login)
+        token,            // token actual (si existe => sesión activa)
+        cerrarSesion,     // función para cerrar sesión
+        estaAutenticado,  // boolean: indica si hay sesión activa
       }}
     >
+      {/* Renderiza toda la app / subtree envuelto por AuthProvider */}
       {children}
     </AuthContext.Provider>
   );
@@ -115,4 +75,7 @@ export const AuthProvider = ({ children }) => {
 
 // PropTypes removed to avoid dev dependency requirement in this project.
 
+// Hook helper para acceder al contexto de autenticación
+// Uso típico:
+// const { usuario, token, estaAutenticado, cerrarSesion } = useAuth();
 export const useAuth = () => useContext(AuthContext);

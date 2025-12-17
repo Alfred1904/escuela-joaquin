@@ -1,299 +1,327 @@
-/* =========================
-   RESET & BASE
-========================= */
+/* ================================
+   Estilos Globales
+   - Variables de tema (tokens), reset CSS, layout base, navbar y footer.
+   - Archivo principal importado en main.jsx (impacta TODO el sitio).
+   ================================ */
+
+/* ================================
+   Reset CSS y estilos base
+   - Normaliza box-model para evitar cálculos raros de ancho/alto.
+   - Define tipografía y colores por defecto para toda la app.
+   ================================ */
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+  box-sizing: border-box; /* padding y border se incluyen dentro del width/height */
 }
 
 body {
-  margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: var(--bg-1, #f5f5f7);
-  color: var(--text, #202124);
+  margin: 0; /* elimina el margen por defecto del navegador */
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; /* fuente moderna y segura */
+  background: var(--bg-1, #f5f5f7); /* usa variable; si no existe, cae en gris claro */
+  color: var(--text, #202124); /* texto general; fallback si la variable no existe */
 }
 
-/* Variables globales del tema (usadas por index-auth.css y otras páginas) */
+/* Variables globales del tema (usadas por index-auth.css y otras páginas)
+   - Aquí se definen “tokens” de diseño reutilizables en todo el proyecto.
+   - Mantener consistencia: colores, sombras, radios, etc. */
 :root{
-  --bg-1: #f7f8f9;
-  --bg-2: #f3f6f8;
-  --card: #ffffff;
-  --accent: #0b3a5d; /* color header principal */
-  --accent-600: #083045;
-  --muted: #6b7280;
-  --text: #202124;
-  --radius: 12px;
-  --shadow-lg: 0 12px 30px rgba(14, 30, 37, 0.08);
-  --shadow-sm: 0 6px 18px rgba(14, 30, 37, 0.06);
+  --bg-1: #f7f8f9;         /* fondo principal */
+  --bg-2: #f3f6f8;         /* fondo alterno para secciones */
+  --card: #ffffff;         /* fondo de tarjetas/paneles */
+  --accent: #0b3a5d;       /* color principal (navbar, botones primarios, acentos) */
+  --accent-600: #083045;   /* variante más oscura para hover/contraste */
+  --muted: #6b7280;        /* texto secundario (descripciones) */
+  --text: #202124;         /* texto principal */
+  --radius: 12px;          /* radio base para componentes */
+  --shadow-lg: 0 12px 30px rgba(14, 30, 37, 0.08); /* sombra “grande” para paneles */
+  --shadow-sm: 0 6px 18px rgba(14, 30, 37, 0.06);  /* sombra “suave” para elementos */
 }
 
-/* =========================
-   LAYOUT GENERAL
-========================= */
+/* ================================
+   Layout general
+   - Contenedor de la app con header/nav arriba, footer abajo y contenido al centro.
+   - Ideal para mantener footer pegado abajo en páginas cortas.
+   ================================ */
 .app-container {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  min-height: 100vh;       /* ocupa toda la altura de la ventana */
+  display: flex;           /* permite layout vertical controlado */
+  flex-direction: column;  /* apila navbar -> main -> footer */
 }
 
 .app-main {
-  flex: 1;
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 1.5rem;
+  flex: 1;                 /* hace que el contenido “empuje” el footer hacia abajo */
+  max-width: 1100px;       /* limita ancho para mejor legibilidad */
+  margin: 0 auto;          /* centra el contenido */
+  padding: 1.5rem;         /* espacio interno */
 }
 
 .page {
-  margin-top: 1.5rem;
+  margin-top: 1.5rem;      /* separa el contenido de la navbar */
 }
 
-/* =========================
-   NAVBAR
-========================= */
+/* ================================
+   Navbar
+   - Barra superior fija tipo “sticky” (se queda arriba al hacer scroll).
+   - Incluye logo y links (menú responsive por media query).
+   ================================ */
 .navbar {
-  background: #0b3a5d;
-  color: #ffffff;
-  position: sticky;
-  top: 0;
-  z-index: 10;
+  background: #0b3a5d;     /* azul principal (podrías usar var(--accent) si deseas) */
+  color: #ffffff;          /* texto blanco para contraste */
+  position: sticky;        /* se queda pegada arriba */
+  top: 0;                  /* ancla superior */
+  z-index: 10;             /* asegura que quede encima de otros elementos */
 }
 
 .navbar-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0.75rem 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  max-width: 1100px;       /* alinea con .app-main */
+  margin: 0 auto;          /* centra el contenido de la navbar */
+  padding: 0.75rem 1.5rem; /* alto y padding lateral */
+  display: flex;           /* layout en fila */
+  align-items: center;     /* centra verticalmente */
+  justify-content: space-between; /* separa logo (izq) y links (der) */
 }
 
 .navbar-logo {
-  display: flex;
-  flex-direction: column;
-  text-decoration: none;
-  color: #ffffff;
-  font-weight: 700;
-  font-size: 1.1rem;
+  display: flex;           /* permite logo + subtítulo en columna */
+  flex-direction: column;  /* título arriba, subtítulo abajo */
+  text-decoration: none;   /* quita subrayado del link */
+  color: #ffffff;          /* asegura que se vea blanco */
+  font-weight: 700;        /* más presencia */
+  font-size: 1.1rem;       /* tamaño del título */
 }
 
 .navbar-subtitle {
-  font-weight: 400;
-  font-size: 0.75rem;
-  opacity: 0.85;
+  font-weight: 400;        /* más ligero que el título */
+  font-size: 0.75rem;      /* tamaño pequeño */
+  opacity: 0.85;           /* baja intensidad para jerarquía visual */
 }
 
 .navbar-toggle {
-  display: none;
-  background: none;
-  border: none;
-  font-size: 1.4rem;
-  color: #ffffff;
-  cursor: pointer;
+  display: none;           /* se muestra solo en móvil (ver media queries) */
+  background: none;        /* sin fondo */
+  border: none;            /* sin borde */
+  font-size: 1.4rem;       /* tamaño del ícono (hamburguesa) */
+  color: #ffffff;          /* ícono blanco */
+  cursor: pointer;         /* indica que es clickeable */
 }
 
 .navbar-links {
-  display: flex;
-  gap: 0.75rem;
+  display: flex;           /* links en fila (desktop) */
+  gap: 0.75rem;            /* separación entre links */
 }
 
 .navbar-link {
-  text-decoration: none;
-  color: #e8eaed;
-  font-size: 0.9rem;
-  padding: 0.3rem 0.6rem;
-  border-radius: 999px;
-  transition: background 0.2s ease, color 0.2s ease;
+  text-decoration: none;   /* quita subrayado */
+  color: #e8eaed;          /* blanco suave (menos fuerte que el logo) */
+  font-size: 0.9rem;       /* tamaño estándar de link */
+  padding: 0.3rem 0.6rem;  /* área clickeable */
+  border-radius: 999px;    /* “pill” */
+  transition: background 0.2s ease, color 0.2s ease; /* transiciones suaves */
 }
 
 .navbar-link:hover {
-  background: #ffffff22;
+  background: #ffffff22;   /* overlay blanco translúcido en hover */
 }
 
 .navbar-link--active {
-  background: #ffffff22;
+  background: #ffffff22;   /* marca la ruta activa con el mismo estilo del hover */
 }
 
-/* =========================
-   CABECERAS DE PÁGINA
-========================= */
+/* ================================
+   Encabezados de página
+   - Reglas simples para títulos y subtítulos estándar.
+   ================================ */
 .page-header h1 {
-  margin: 0 0 0.3rem;
+  margin: 0 0 0.3rem;      /* compacta el título sin perder jerarquía */
 }
 
 .page-header-subtitle {
-  margin: 0;
-  color: #5f6368;
+  margin: 0;               /* evita espacio extra */
+  color: #5f6368;          /* gris para texto secundario */
 }
 
-/* =========================
-   CARDS & GRID
-========================= */
+/* ================================
+   Cards y grillas
+   - Card reutilizable para bloques de información.
+   - Grid-2 y Grid-3 para layouts tipo dashboard.
+   ================================ */
 .card {
-  background: #ffffff;
-  border-radius: 0.75rem;
-  padding: 1.25rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  background: #ffffff;     /* fondo card */
+  border-radius: 0.75rem;  /* bordes redondeados (12px aprox) */
+  padding: 1.25rem;        /* espacio interno */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06); /* sombra ligera */
 }
 
 .card-title {
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.5rem;      /* separa título del contenido */
 }
 
 .card-tag {
-  display: inline-block;
-  margin-bottom: 0.4rem;
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  background: #e1f2ff;
-  color: #0b3a5d;
-  padding: 0.15rem 0.5rem;
-  border-radius: 999px;
+  display: inline-block;   /* se comporta como “chip” */
+  margin-bottom: 0.4rem;   /* separación con el título */
+  font-size: 0.7rem;       /* tamaño pequeño */
+  text-transform: uppercase; /* look de etiqueta */
+  letter-spacing: 0.05em;  /* espaciado para estética */
+  background: #e1f2ff;     /* fondo celeste suave */
+  color: #0b3a5d;          /* texto azul (coherente con la marca) */
+  padding: 0.15rem 0.5rem; /* tamaño del chip */
+  border-radius: 999px;    /* chip redondo */
 }
 
 .grid-2,
 .grid-3 {
-  display: grid;
-  gap: 1rem;
+  display: grid;           /* activa grid layout */
+  gap: 1rem;               /* espacio entre tarjetas */
 }
 
 .grid-2 {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr)); /* 2 columnas iguales */
 }
 
 .grid-3 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr)); /* 3 columnas iguales */
 }
 
 .section-margin {
-  margin-top: 1.8rem;
+  margin-top: 1.8rem;      /* separa secciones verticalmente */
 }
 
-/* =========================
-   FOOTER
-========================= */
+/* ================================
+   Footer
+   - Pie de página simple con el mismo color de la navbar.
+   ================================ */
 .footer {
-  background: #0b3a5d;
-  color: #e8eaed;
-  text-align: center;
-  padding: 1rem;
-  font-size: 0.8rem;
+  background: #0b3a5d;     /* azul principal */
+  color: #e8eaed;          /* texto blanco suave */
+  text-align: center;      /* centra el texto */
+  padding: 1rem;           /* alto cómodo */
+  font-size: 0.8rem;       /* texto pequeño */
 }
 
-/* =========================
-   PÁGINA DE CONTACTO
-========================= */
+/* ================================
+   Página de contacto (legacy)
+   - Estilos específicos para una página antigua (Contacto).
+   - Se mantiene para no romper la vista existente.
+   ================================ */
 .page-contacto {
-  max-width: 960px;
-  margin: 1.5rem auto 2.5rem;
-  padding: 2rem 2.5rem;
-  background: #ffffff;
-  border-radius: 18px;
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.07);
-  border: 1px solid rgba(11, 58, 93, 0.06);
+  max-width: 960px;        /* ancho algo menor que el layout general */
+  margin: 1.5rem auto 2.5rem; /* centra y añade separación inferior */
+  padding: 2rem 2.5rem;    /* padding amplio (desktop) */
+  background: #ffffff;     /* fondo blanco */
+  border-radius: 18px;     /* bordes redondeados grandes */
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.07); /* sombra más marcada */
+  border: 1px solid rgba(11, 58, 93, 0.06);    /* borde muy sutil */
 }
 
 /* Utilidad: panel de página consistente para secciones principales
-   Reproduce márgenes y padding similares a pagina Contacto/Calendario/Convocatorias */
+   - Útil para “envolver” páginas completas con un panel uniforme.
+   - Reproduce márgenes/padding similares a Contacto/Calendario/Convocatorias. */
 .page-panel {
-  max-width: 1100px;
-  margin: 1.5rem auto 2.5rem;
-  padding: 1.75rem 1.75rem;
-  background: var(--card, #ffffff);
-  border-radius: 16px;
-  box-shadow: var(--shadow-lg);
-  border: 1px solid rgba(11, 58, 93, 0.04);
+  max-width: 1100px;       /* ancho consistente con la app */
+  margin: 1.5rem auto 2.5rem; /* separación arriba/abajo */
+  padding: 1.75rem 1.75rem;/* padding en desktop */
+  background: var(--card, #ffffff); /* fondo del panel (token) */
+  border-radius: 16px;     /* bordes redondeados */
+  box-shadow: var(--shadow-lg); /* sombra estándar del tema */
+  border: 1px solid rgba(11, 58, 93, 0.04); /* borde ultra sutil */
 }
 
 @media (max-width: 800px) {
   .page-panel {
-    padding: 1.25rem 1rem;
-    margin: 1rem 0 2rem;
-    border-radius: 12px;
+    padding: 1.25rem 1rem; /* reduce padding en pantallas pequeñas */
+    margin: 1rem 0 2rem;   /* ocupa más el ancho disponible */
+    border-radius: 12px;   /* reduce el radio para móvil */
   }
 }
 
-/* Párrafo introductorio */
+/* Párrafo introductorio
+   - Solo aplica al primer párrafo directo dentro de .page-contacto */
 .page-contacto > p:first-of-type {
-  font-size: 0.95rem;
-  line-height: 1.7;
-  color: #5f6368;
-  margin-bottom: 1.5rem;
+  font-size: 0.95rem;      /* ligeramente menor que el estándar */
+  line-height: 1.7;        /* mejor legibilidad */
+  color: #5f6368;          /* texto secundario */
+  margin-bottom: 1.5rem;   /* separación con el contenido siguiente */
 }
 
-/* Títulos grandes (secciones) */
+/* Títulos grandes (secciones)
+   - Los h2 se usan como secciones principales dentro de contacto */
 .page-contacto h2 {
-  margin-top: 1.8rem;
-  margin-bottom: 0.8rem;
-  font-size: 1.25rem;
-  color: #0b3a5d;
-  font-weight: 700;
-  position: relative;
+  margin-top: 1.8rem;      /* separación superior entre secciones */
+  margin-bottom: 0.8rem;   /* separación inferior */
+  font-size: 1.25rem;      /* tamaño de sección */
+  color: #0b3a5d;          /* color marca */
+  font-weight: 700;        /* destacado */
+  position: relative;      /* permite pseudo-elementos decorativos */
 }
 
 .page-contacto h2::after {
-  content: "";
+  content: "";             /* línea decorativa debajo del h2 */
   display: block;
-  width: 80px;
-  height: 3px;
-  margin-top: 0.4rem;
-  border-radius: 999px;
-  background: #00b4d8;
+  width: 80px;             /* largo de la línea */
+  height: 3px;             /* grosor */
+  margin-top: 0.4rem;      /* espacio con el texto */
+  border-radius: 999px;    /* extremos redondeados */
+  background: #00b4d8;     /* acento celeste */
 }
 
-/* Subtítulos (departamentos) */
+/* Subtítulos (departamentos)
+   - h3 funciona como “chip”/etiqueta de bloque */
 .page-contacto h3 {
   margin-top: 1.4rem;
   margin-bottom: 0.35rem;
   font-size: 1rem;
   color: #0b3a5d;
   font-weight: 600;
-  display: inline-block;
+  display: inline-block;   /* permite fondo tipo etiqueta */
   padding: 0.35rem 0.9rem;
   border-radius: 999px;
-  background: rgba(0, 180, 216, 0.1);
+  background: rgba(0, 180, 216, 0.1); /* celeste suave */
 }
 
-/* Sub-subtítulos (Español, Inglés, etc.) */
+/* Sub-subtítulos (Español, Inglés, etc.)
+   - h4 para subniveles dentro de un departamento */
 .page-contacto h4 {
   margin-top: 1rem;
   margin-bottom: 0.25rem;
   font-size: 0.95rem;
-  color: #003b5c;
+  color: #003b5c;          /* azul más profundo */
   font-weight: 600;
   display: inline-block;
   padding: 0.25rem 0.75rem;
   border-radius: 999px;
-  background: rgba(11, 58, 93, 0.06);
+  background: rgba(11, 58, 93, 0.06); /* azul suave */
 }
 
-/* Texto general */
+/* Texto general
+   - Estilo para párrafos dentro de contacto (excepto el primer párrafo) */
 .page-contacto p {
-  margin: 0.15rem 0;
+  margin: 0.15rem 0;       /* compacta verticalmente */
   font-size: 0.92rem;
   line-height: 1.5;
-  color: #374151;
+  color: #374151;          /* gris oscuro legible */
 }
 
-/* Resalta correos/teléfonos justo después de un título */
+/* Resalta correos/teléfonos justo después de un título
+   - Selecciona el p inmediatamente después de h3/h4 */
 .page-contacto h3 + p,
 .page-contacto h4 + p {
-  display: inline-block;
+  display: inline-block;   /* lo convierte en “capsula” de info */
   margin-top: 0.3rem;
   padding: 0.35rem 0.75rem;
   border-radius: 12px;
-  background: #f5f9fc;
-  font-family: "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  background: #f5f9fc;     /* fondo muy claro */
+  font-family: "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", monospace; /* estilo tipo “dato” */
   font-size: 0.9rem;
 }
 
-/* Líneas adicionales del mismo bloque (más correos debajo) */
+/* Líneas adicionales del mismo bloque (más correos debajo)
+   - Aplica para p siguientes dentro de la misma sección */
 .page-contacto h3 + p + p,
 .page-contacto h3 + p + p + p,
 .page-contacto h4 + p + p {
-  display: block;
-  margin-left: 0.4rem;
+  display: block;          /* se apilan como lista */
+  margin-left: 0.4rem;     /* sangría para indicar continuidad */
   padding: 0.25rem 0.7rem;
   border-radius: 10px;
   background: #f5f9fc;
@@ -301,49 +329,50 @@ body {
 
 /* =========================
    MEDIA QUERIES
-========================= */
+   - Ajustes responsive para grids y navbar mobile.
+   ========================= */
 @media (max-width: 800px) {
   .grid-2,
   .grid-3 {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* en móvil, una sola columna */
   }
 
   .navbar-toggle {
-    display: block;
+    display: block;        /* aparece el botón “hamburguesa” */
   }
 
   .navbar-links {
-    position: absolute;
-    top: 100%;
+    position: absolute;    /* menú desplegable bajo la navbar */
+    top: 100%;             /* justo debajo de .navbar */
     left: 0;
     right: 0;
     padding: 0.5rem 1.5rem 0.8rem;
-    background: #0b3a5d;
-    flex-direction: column;
-    display: none;
+    background: #0b3a5d;   /* mismo color de la navbar */
+    flex-direction: column;/* links en columna */
+    display: none;         /* cerrado por defecto */
   }
 
   .navbar-links--open {
-    display: flex;
+    display: flex;         /* se abre cuando agregas esta clase desde React */
   }
 }
 
 @media (max-width: 600px) {
   .page-contacto {
-    padding: 1.5rem 1.25rem;
-    margin: 1rem 0 2rem;
-    border-radius: 14px;
+    padding: 1.5rem 1.25rem; /* reduce padding para pantallas pequeñas */
+    margin: 1rem 0 2rem;     /* ocupa más ancho del viewport */
+    border-radius: 14px;     /* ajusta radio */
   }
 
   .page-contacto h2 {
-    font-size: 1.15rem;
+    font-size: 1.15rem;      /* reduce tamaño de secciones */
   }
 
   .page-contacto h3 {
-    font-size: 0.95rem;
+    font-size: 0.95rem;      /* reduce subtítulos */
   }
 
   .page-contacto p {
-    font-size: 0.9rem;
+    font-size: 0.9rem;       /* mejora legibilidad en móvil */
   }
 }

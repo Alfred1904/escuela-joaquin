@@ -1,12 +1,36 @@
 <!doctype html>
+<!-- GUÍA: Indica que este documento usa HTML5. -->
+
 <html lang="es">
+  <!-- GUÍA: lang="es" le dice al navegador y a lectores de pantalla que el contenido está en español
+       (mejora accesibilidad y SEO). -->
+
   <head>
+    <!-- GUÍA: El <head> guarda metadatos y configuraciones que no se ven directamente en la página. -->
+
     <meta charset="UTF-8" />
+    <!-- GUÍA: Define la codificación de caracteres (UTF-8) para soportar tildes, ñ, símbolos, etc. -->
+
     <title>Ruta EA - Educación Abierta</title>
+    <!-- GUÍA: Texto que aparece en la pestaña del navegador y en resultados de búsqueda. -->
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- GUÍA: Hace que la web sea responsiva en móviles:
+         - width=device-width = usa el ancho real del dispositivo
+         - initial-scale=1.0 = escala inicial normal -->
   </head>
+
   <body>
+    <!-- GUÍA: Aquí va el contenido visible de la página.
+         En apps React, casi todo lo renderiza React dentro del contenedor root. -->
+
     <div id="root"></div>
+    <!-- GUÍA: Este div es el “punto de montaje” de React.
+         En main.jsx se usa document.getElementById("root") para renderizar la app aquí. -->
+
     <script type="module" src="/src/main.jsx"></script>
+    <!-- GUÍA: Carga el archivo de entrada de tu app (Vite/ES Modules).
+         type="module" permite imports/export modernos.
+         main.jsx suele crear el root de React y renderizar <App /> o <Routing />. -->
   </body>
 </html>

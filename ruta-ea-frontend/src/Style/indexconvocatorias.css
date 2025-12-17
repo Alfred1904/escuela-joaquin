@@ -1,85 +1,108 @@
-/* Página de Convocatorias: contenedor general */
+/* ================================
+   Página de Convocatorias
+   - Estilos para convocatorias y oportunidades.
+   - Usa variables globales definidas en `src/Style/index.css` (:root)
+   - GUÍA: Este archivo define el “layout” general y el look de las tarjetas
+     donde se muestra la información (títulos, listas, textos).
+   ================================ */
+
+/* ================================
+   Contenedor general
+   - Enmarca todo el contenido de la página y lo centra.
+   ================================ */
 .page-convocatorias {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 2rem 1.5rem 4rem;
+  max-width: 1100px; /* limita el ancho para una lectura cómoda */
+  margin: 0 auto; /* centra el contenedor */
+  padding: 2rem 1.5rem 4rem; /* padding: arriba/lados/abajo (abajo más grande por el contenido) */
 }
 
-/* Párrafo introductorio debajo del PageHeader */
+/* Texto introductorio
+   - GUÍA: párrafo inicial que explica qué se verá en la página. */
 .page-convocatorias .intro-text {
-  margin-top: 0.75rem;
-  margin-bottom: 2rem;
-  font-size: 0.98rem;
-  line-height: 1.6;
-  color: #4a5568; /* gris suave para texto */
+  margin-top: 0.75rem; /* separa del título principal */
+  margin-bottom: 2rem; /* separa de la primera tarjeta */
+  font-size: 0.98rem; /* tamaño un poco más grande para lectura */
+  line-height: 1.6; /* legibilidad */
+  color: #4a5568; /* gris azulado para texto secundario */
 }
 
-/* Tarjetas / secciones (similar a Contacto) */
+/* ================================
+   Tarjetas de secciones
+   - Cada bloque “card-section” representa una sección/tema de convocatoria.
+   - GUÍA: si agregas más secciones, reutiliza esta clase.
+   ================================ */
 .page-convocatorias .card-section {
-  background-color: #ffffff;
-  border-radius: 20px;
-  padding: 1.8rem 1.6rem;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
-  border: 1px solid #e2e8f0;
+  background-color: #ffffff; /* tarjeta blanca */
+  border-radius: 20px; /* redondeo amplio */
+  padding: 1.8rem 1.6rem; /* padding cómodo */
+  margin-bottom: 1.5rem; /* separación entre tarjetas */
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05); /* sombra suave */
+  border: 1px solid #e2e8f0; /* borde tenue para delimitar */
 }
 
-/* Títulos de secciones (h2) */
+/* Títulos de secciones (h2)
+   - GUÍA: título principal dentro de cada tarjeta (ej: “Convocatoria 2026”). */
 .page-convocatorias .card-section h2 {
-  font-size: 1.4rem;
-  margin-bottom: 0.9rem;
-  color: #103b5a; /* azul oscuro similar al menú */
-  font-weight: 700;
+  font-size: 1.4rem; /* jerarquía principal de la tarjeta */
+  margin-bottom: 0.9rem; /* separa del contenido siguiente */
+  color: #103b5a; /* azul oscuro, consistente con navegación */
+  font-weight: 700; /* fuerte */
 }
 
-/* Subtítulos internos (h3) */
+/* Subtítulos internos (h3)
+   - GUÍA: se usa para dividir subsecciones dentro de una tarjeta. */
 .page-convocatorias .card-section h3 {
-  font-size: 1.05rem;
-  margin-top: 1.1rem;
-  margin-bottom: 0.4rem;
+  font-size: 1.05rem; /* jerarquía secundaria */
+  margin-top: 1.1rem; /* separa de lo anterior */
+  margin-bottom: 0.4rem; /* separa del contenido */
   color: #0f6e8f; /* azul medio */
   font-weight: 600;
 }
 
-/* Listas ordenadas y no ordenadas */
+/* Listas ordenadas y no ordenadas
+   - GUÍA: da indentación y espaciado uniforme para ul/ol dentro de una tarjeta. */
 .page-convocatorias .card-section ul,
 .page-convocatorias .card-section ol {
-  margin: 0.4rem 0 0.9rem 1.2rem;
-  padding: 0;
+  margin: 0.4rem 0 0.9rem 1.2rem; /* top/right/bottom/left (left indent) */
+  padding: 0; /* se controla por margin-left */
 }
 
-/* Elementos de lista */
+/* Elementos de lista
+   - GUÍA: estilos de cada <li> para mantener lectura consistente. */
 .page-convocatorias .card-section li {
-  margin-bottom: 0.35rem;
-  font-size: 0.96rem;
-  line-height: 1.5;
-  color: #4a5568;
+  margin-bottom: 0.35rem; /* separación entre items */
+  font-size: 0.96rem; /* tamaño legible */
+  line-height: 1.5; /* interlineado */
+  color: #4a5568; /* gris azulado */
 }
 
-/* Resaltar textos en negrita dentro del contenido */
+/* Resaltar textos en negrita dentro del contenido
+   - GUÍA: se usa para fechas, requisitos, puntos clave, etc. */
 .page-convocatorias .card-section strong {
-  color: #0f6e8f;
+  color: #0f6e8f; /* cambia el color para resaltar más que solo “negrita” */
   font-weight: 700;
 }
 
-/* Párrafo de cierre */
+/* Párrafo de cierre
+   - GUÍA: texto final o nota general al final de la página. */
 .page-convocatorias .closing-text {
-  margin-top: 0.75rem;
-  font-size: 0.95rem;
-  color: #4a5568;
+  margin-top: 0.75rem; /* separa del último bloque */
+  font-size: 0.95rem; /* un poquito menor */
+  color: #4a5568; /* gris azulado */
 }
 
-/* Ajuste responsivo para pantallas pequeñas */
+/* Ajuste responsivo para pantallas pequeñas
+   - GUÍA: reduce padding y tamaño de títulos para móvil/tablet. */
 @media (max-width: 768px) {
   .page-convocatorias {
-    padding: 1.5rem 1rem 3rem;
+    padding: 1.5rem 1rem 3rem; /* menos padding para aprovechar espacio */
   }
 
   .page-convocatorias .card-section {
-    padding: 1.4rem 1.2rem;
+    padding: 1.4rem 1.2rem; /* reduce padding interno de la tarjeta */
   }
 
   .page-convocatorias .card-section h2 {
-    font-size: 1.25rem;
+    font-size: 1.25rem; /* reduce tamaño del título de la tarjeta */
   }
 }

@@ -1,16 +1,42 @@
-/* src/Style/index-auth.css o similar */
+/* ================================
+   Botón de Cerrar Sesión
+   - Estilos para el botón de “Cerrar sesión” en la navegación (Navbar/Topbar).
+   - GUÍA: Mantén este botón visible y claro porque es una acción crítica.
+   ================================ */
+
+/* ================================
+   Estilo del botón principal
+   - Define tamaño, tipografía, color y comportamiento general.
+   - Se aplica a: <button class="boton-cerrar-sesion">Cerrar sesión</button>
+   ================================ */
 .boton-cerrar-sesion {
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 6px;
-  font-weight: 600;
-  cursor: pointer;
-  background-color: #b71c1c; /* rojo profundo */
-  color: white;
-  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  padding: 0.5rem 1rem; /* espacio interno: hace el botón cómodo de clicar/tocar */
+  border: none; /* elimina el borde por defecto del navegador */
+  border-radius: 6px; /* esquinas levemente redondeadas (look moderno) */
+  font-weight: 600; /* texto con presencia */
+  cursor: pointer; /* indica que es interactivo */
+  background-color: #b71c1c; /* rojo profundo: comunica “salir / acción importante” */
+  color: white; /* contraste alto para buena legibilidad */
+  transition: transform 0.1s ease, box-shadow 0.1s ease; /* animaciones cortas para feedback */
+  font-size: 0.9rem; /* tamaño de letra consistente con la navbar */
 }
 
+/* ================================
+   Estado hover del botón
+   - Efecto cuando el mouse pasa por encima (desktop).
+   - GUÍA: el “lift” + sombra da sensación de botón real.
+   ================================ */
 .boton-cerrar-sesion:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  transform: translateY(-1px); /* sube 1px para efecto de elevación */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25); /* sombra ligera al hover */
+}
+
+/* ================================
+   Estado activo del botón
+   - Efecto al presionar (click/tap).
+   - GUÍA: vuelve a su posición y baja la sombra para simular “presionado”.
+   ================================ */
+.boton-cerrar-sesion:active {
+  transform: translateY(0); /* regresa a su posición original */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* sombra más pequeña al presionar */
 }

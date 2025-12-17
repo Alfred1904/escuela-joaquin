@@ -1,0 +1,350 @@
+/* ============================================================
+   LAYOUT GENERAL
+   - Contenedor principal del panel admin (sidebar + contenido).
+   - min-height usa calc para “restar” navbar/footer y evitar scroll extraño.
+   ============================================================ */
+.admin-layout {
+  display: flex; /* coloca sidebar y main en una fila */
+  min-height: calc(100vh - 120px); /* ajusta según altura real de navbar/footer */
+  background: #f4f6f9; /* fondo gris claro del área admin */
+}
+
+/* ============================================================
+   SIDEBAR
+   - Columna izquierda con branding y menú.
+   - flex-shrink: 0 evita que se encoja cuando el contenido crece.
+   ============================================================ */
+.admin-sidebar {
+  width: 230px; /* ancho fijo del sidebar */
+  background: #222d32; /* color oscuro estilo “admin” */
+  color: #ecf0f5; /* texto claro para contraste */
+  flex-shrink: 0; /* no permitir que el sidebar se reduzca */
+  display: flex; /* permite organizar contenido verticalmente */
+  flex-direction: column; /* marca/menú en columna */
+}
+
+/* Área de marca (logo/título) */
+.admin-brand {
+  padding: 1.2rem 1rem; /* espacio interno del bloque */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* separador sutil */
+}
+
+/* Título principal del panel (ej: “Admin”) */
+.admin-brand__title {
+  display: block; /* asegura salto de línea */
+  font-weight: 700; /* negrita */
+  font-size: 1.1rem; /* tamaño del título */
+}
+
+/* Subtítulo (ej: “Panel de control”) */
+.admin-brand__subtitle {
+  font-size: 0.75rem; /* texto pequeño */
+  opacity: 0.8; /* menos intensidad para jerarquía */
+}
+
+/* Contenedor del menú */
+.admin-menu {
+  padding: 0.75rem 0.5rem 1.5rem; /* padding general del menú */
+  display: flex; /* organiza items en columna */
+  flex-direction: column;
+  gap: 0.25rem; /* separación entre items */
+}
+
+/* Etiqueta de sección dentro del menú (ej: “Gestión”) */
+.admin-menu__label {
+  margin: 0.5rem 0.5rem 0.25rem; /* separaciones respecto a items */
+  font-size: 0.75rem; /* pequeño */
+  text-transform: uppercase; /* look tipo categoría */
+  color: #95a5a6; /* gris claro */
+  background: none; /* se deja transparente */
+  border: none; /* si es button, evita borde */
+}
+
+/* Link/Item del menú */
+.admin-menu__item {
+  padding: 0.55rem 0.9rem; /* área clickeable */
+  margin: 0 0.5rem; /* separa del borde del sidebar */
+  border-radius: 4px; /* redondeo leve */
+  font-size: 0.9rem; /* tamaño de texto */
+  color: #ecf0f5; /* texto claro */
+  text-decoration: none; /* quita subrayado del link */
+  display: block; /* ocupa todo el ancho disponible */
+}
+
+/* Hover para indicar interactividad */
+.admin-menu__item:hover {
+  background: #1e282c; /* oscurece ligeramente al pasar el mouse */
+}
+
+/* Item activo (ruta actual) */
+.admin-menu__item--active {
+  background: #1abc9c; /* verde/teal resaltado */
+  color: #ffffff; /* texto blanco */
+}
+
+/* ============================================================
+   CONTENIDO PRINCIPAL
+   - Área derecha donde se renderiza el dashboard/listados/forms.
+   ============================================================ */
+.admin-main {
+  flex: 1; /* toma el espacio restante */
+  padding: 1.5rem 1.8rem 2.5rem; /* padding cómodo (arriba/lados/abajo) */
+}
+
+/* ============================================================
+   TOPBAR
+   - Barra superior del contenido (título + info de usuario).
+   ============================================================ */
+.admin-topbar {
+  display: flex; /* distribuye título e info usuario en fila */
+  justify-content: space-between; /* separa extremos */
+  align-items: center; /* centra verticalmente */
+  margin-bottom: 1.2rem; /* espacio con el contenido siguiente */
+}
+
+/* Título del módulo/página (ej: “Dashboard”) */
+.admin-topbar__title {
+  font-size: 1.4rem; /* jerarquía del título */
+  font-weight: 700; /* fuerte */
+  margin: 0; /* elimina margen default del h1/h2 */
+}
+
+/* Subtítulo/descripción corta */
+.admin-topbar__subtitle {
+  margin: 0.2rem 0 0; /* separa del título */
+  color: #7f8c8d; /* gris para texto secundario */
+  font-size: 0.9rem;
+}
+
+/* Nombre del usuario (ej: “Geovanny”) */
+.admin-topbar__user {
+  font-weight: 600; /* semi-negrita */
+  display: block; /* apila con el rol */
+}
+
+/* Rol del usuario (ej: “Admin”) */
+.admin-topbar__role {
+  font-size: 0.8rem;
+  color: #7f8c8d; /* secundario */
+}
+
+/* ============================================================
+   SECCIONES
+   - Bloques que agrupan paneles: KPIs, grids de contenido, etc.
+   ============================================================ */
+.admin-section {
+  margin-bottom: 1.4rem; /* separación entre secciones */
+}
+
+/* Grid de KPI cards (auto-fit se adapta a ancho disponible) */
+.admin-section--kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); /* responsive sin media query */
+  gap: 0.9rem; /* separación entre cards */
+}
+
+/* Grid de 2 columnas: contenido principal + columna lateral */
+.admin-section--grid-2 {
+  display: grid;
+  grid-template-columns: 2fr 1.3fr; /* proporciones (izq más ancho) */
+  gap: 1rem;
+}
+
+/* Grid de 3 columnas: útil para paneles tipo dashboard */
+.admin-section--grid-3 {
+  display: grid;
+  grid-template-columns: 2fr 1.6fr 1.4fr; /* proporciones equilibradas */
+  gap: 1rem;
+}
+
+/* ============================================================
+   PANELES
+   - “Tarjetas” blancas que contienen tablas, gráficas, listas, etc.
+   ============================================================ */
+.admin-panel {
+  background: #ffffff; /* panel blanco */
+  border-radius: 6px; /* redondeo sutil */
+  padding: 1rem 1.1rem 1.2rem; /* espacio interno */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06); /* sombra leve (sobria) */
+}
+
+/* Título del panel */
+.admin-panel__title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem; /* separa del subtítulo/contenido */
+}
+
+/* Subtítulo del panel (explicación breve) */
+.admin-panel__subtitle {
+  font-size: 0.8rem;
+  color: #7f8c8d; /* gris */
+  margin-bottom: 0.9rem; /* separa del contenido */
+}
+
+/* ============================================================
+   TARJETAS KPI
+   - Bloques pequeños con color de fondo y valor destacado.
+   ============================================================ */
+.stat-card {
+  border-radius: 4px; /* redondeo leve */
+  padding: 0.9rem 1rem; /* espacio interno */
+  color: #ffffff; /* texto blanco (se asume fondo con color) */
+  display: flex; /* etiqueta y valor en la misma fila */
+  justify-content: space-between; /* separa label y valor */
+  align-items: center; /* centra vertical */
+}
+
+/* Etiqueta del KPI (ej: “Estudiantes”) */
+.stat-card__label {
+  display: block;
+  font-size: 0.85rem;
+  opacity: 0.9; /* reduce intensidad para que el valor resalte */
+}
+
+/* Valor del KPI (ej: “120”) */
+.stat-card__value {
+  display: block;
+  font-size: 1.4rem; /* más grande que el label */
+  font-weight: 700;
+}
+
+/* ============================================================
+   COLORES (variantes de KPI)
+   - Se aplican como clases extra: stat-card stat-card--blue, etc.
+   ============================================================ */
+.stat-card--blue {
+  background: #00c0ef;
+}
+
+.stat-card--green {
+  background: #00a65a;
+}
+
+.stat-card--orange {
+  background: #f39c12;
+}
+
+.stat-card--red {
+  background: #dd4b39;
+}
+
+/* ============================================================
+   PLACEHOLDERS (gráficos/mapa/pie)
+   - Mientras no hay chart real, este bloque muestra un contenedor.
+   ============================================================ */
+.admin-chart-placeholder,
+.admin-map-placeholder,
+.admin-pie-placeholder {
+  height: 220px; /* altura fija para mantener estabilidad visual */
+  border-radius: 4px;
+  border: 1px dashed #dfe4ea; /* indica “placeholder” */
+  display: flex;
+  align-items: center; /* centra vertical */
+  justify-content: center; /* centra horizontal */
+  font-size: 0.85rem;
+  color: #95a5a6; /* texto gris */
+}
+
+/* ============================================================
+   BARRAS DE PROGRESO
+   - Elementos tipo “tarea/progreso” con %.
+   ============================================================ */
+.progress-item {
+  margin-bottom: 0.7rem; /* separación entre items */
+}
+
+/* Encabezado con nombre y porcentaje */
+.progress-item__header {
+  display: flex;
+  justify-content: space-between; /* label a la izq, % a la der */
+  font-size: 0.8rem;
+  margin-bottom: 0.25rem;
+}
+
+/* Contenedor de la barra (fondo) */
+.progress-item__bar {
+  height: 7px; /* grosor */
+  border-radius: 10px; /* redondeo total */
+  background: #ecf0f1; /* fondo gris claro */
+  overflow: hidden; /* recorta el fill para mantener bordes redondos */
+}
+
+/* Fill de la barra (se controla con width inline o clase adicional) */
+.progress-item__bar-fill {
+  height: 100%;
+}
+
+/* Variantes de color del fill */
+.progress-item__bar-fill--blue {
+  background: #00c0ef;
+}
+
+.progress-item__bar-fill--green {
+  background: #00a65a;
+}
+
+.progress-item__bar-fill--orange {
+  background: #f39c12;
+}
+
+/* ============================================================
+   LISTA SIMPLE
+   - Lista sin bullets para eventos, tareas, notificaciones, etc.
+   ============================================================ */
+.admin-list {
+  list-style: none; /* elimina bullets */
+  padding: 0;
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+/* Cada fila con separación y borde inferior */
+.admin-list li {
+  padding: 0.45rem 0;
+  border-bottom: 1px solid #ecf0f1;
+  display: flex;
+  justify-content: space-between; /* texto a la izq, dato a la der */
+}
+
+/* Span para el dato secundario (fecha, estado, etc.) */
+.admin-list li span {
+  color: #95a5a6; /* gris */
+  margin-left: 0.5rem;
+  font-size: 0.8rem;
+}
+
+/* ============================================================
+   LEYENDA PARA GRÁFICO CIRCULAR (pie chart)
+   - Listado de categorías/porcentajes por color (cuando exista chart real).
+   ============================================================ */
+.admin-legend {
+  list-style: none;
+  padding: 0;
+  margin: 0.7rem 0 0; /* separa del gráfico */
+  font-size: 0.8rem;
+}
+
+.admin-legend li {
+  margin-bottom: 0.25rem;
+}
+
+/* ============================================================
+   RESPONSIVO
+   - En pantallas medianas/bajas: colapsa grids a 1 columna,
+     oculta sidebar (solución simple) y reduce padding del main.
+   ============================================================ */
+@media (max-width: 992px) {
+  .admin-section--grid-2,
+  .admin-section--grid-3 {
+    grid-template-columns: 1fr; /* todo en una columna */
+  }
+
+  .admin-sidebar {
+    display: none; /* opción simple: luego puedes hacerla colapsable */
+  }
+
+  .admin-main {
+    padding: 1rem; /* menos padding en móvil/tablet */
+  }
+}

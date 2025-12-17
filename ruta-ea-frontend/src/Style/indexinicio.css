@@ -1,0 +1,356 @@
+/* ============================
+   FONDO PÁGINA INICIO / LOGIN
+   - Estilos principales para la página de Inicio (y cualquier vista con .page-inicio).
+   - GUÍA: Aquí se define el fondo con imagen + el panel claro encima para legibilidad.
+   ============================ */
+
+/* Fondo con la foto de la escuela solo para la página de Inicio (y cualquier vista que use .page-inicio) */
+.page-inicio {
+  background-image: url("https://scontent.fsyq6-1.fna.fbcdn.net/v/t1.6435-9/118886939_1578688542305532_4547160415494450570_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=833d8c&_nc_ohc=uwozqkM5GiUQ7kNvwFaiQ5t&_nc_oc=AdlyqgNjxTDDJV133xgzzs8XFTM7sYPlek4Ugqu6cD224a06SBAry2U8AHYL0ItloVk&_nc_zt=23&_nc_ht=scontent.fsyq6-1.fna&_nc_gid=VcgdZlRvAt3hJfAOkvMUXw&oh=00_AflqgiHsyy1wxKJwe8AEggpWbnIBwF-OtaCzIplsaQ-GUw&oe=6961283E") !important;
+  /* GUÍA: background-image trae la foto. OJO: usar URL externa puede fallar si cambia/permisos.
+     Ideal a futuro: mover la imagen a /src/assets y referenciarla localmente. */
+
+  background-size: cover !important; /* cubre toda la pantalla sin deformar (puede recortar) */
+  background-position: center !important; /* centra la parte más importante de la imagen */
+  background-repeat: no-repeat !important; /* evita “tiles” */
+  min-height: 100vh !important; /* asegura que cubra toda la altura visible */
+  /* GUÍA: !important se usa para “ganar” prioridad si hay estilos globales que chocan. */
+}
+
+/* Bloque blanco encima del fondo para mantener la estética de panel
+   - GUÍA: Este contenedor es el “panel” donde va el contenido real para que se lea sobre la imagen. */
+.inicio-contenido {
+  max-width: 1100px; /* limita ancho para lectura */
+  margin: 0 auto; /* centra el panel */
+  padding: 2rem 1.5rem 3rem; /* espacio interno: arriba/lados/abajo */
+  background: rgba(245, 247, 251, 0.9); /* fondo semi-transparente para ver un poco la foto */
+  border-radius: 24px; /* redondeo grande */
+}
+
+/* Grid de dos columnas reutilizable
+   - GUÍA: se usa para secciones tipo “2 cards” una al lado de otra. */
+.grid-2 {
+  margin-top: 1.5rem; /* separa del contenido anterior */
+  display: grid; /* activa grid */
+  grid-template-columns: repeat(2, minmax(0, 1fr)); /* 2 columnas iguales */
+  gap: 1.5rem; /* separación entre columnas */
+}
+
+/* ============================
+   SECCIÓN TESTIMONIOS
+   - Contenedor de testimonios (intro + cards + filtros + comentarios).
+   ============================ */
+
+.testimonios-section {
+  max-width: 1100px; /* alinea el ancho con el resto de páginas */
+  margin: 0 auto 3rem; /* centra y deja espacio abajo */
+  padding: 1.5rem 0 2rem; /* padding vertical (sin laterales) */
+}
+
+/* Párrafo introductorio (tarjeta grande arriba)
+   - GUÍA: sirve como descripción de la sección o instrucciones. */
+.testimonios-intro {
+  background: #ffffff; /* tarjeta blanca */
+  border-radius: 22px; /* redondeo */
+  padding: 1.75rem 2rem; /* espacio interno */
+  margin-bottom: 2rem; /* separa del listado */
+  font-size: 0.95rem; /* tamaño base */
+  line-height: 1.6; /* legibilidad */
+  color: #4a5568; /* gris azulado */
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05); /* sombra suave */
+  border: 1px solid rgba(148, 163, 184, 0.25); /* borde tenue */
+}
+
+/* Tarjetas de testimonios
+   - GUÍA: cada testimonio va dentro de una card con este estilo. */
+.testimonio-card {
+  background: #ffffff; /* fondo blanco */
+  border-radius: 22px; /* redondeo consistente */
+  padding: 1.75rem 2rem; /* padding cómodo */
+  margin-bottom: 1.5rem; /* separación entre testimonios */
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05); /* sombra suave */
+  border: 1px solid rgba(148, 163, 184, 0.25); /* borde tenue */
+  color: #1f2933; /* texto principal */
+  font-size: 0.95rem;
+  line-height: 1.7; /* lectura */
+}
+
+/* Testimonio destacado (hero)
+   - GUÍA: se usa para resaltar uno (por ejemplo el más importante o reciente). */
+.testimonio-hero {
+  border-left: 6px solid #0c7ac9; /* barra azul para destacar */
+  margin-bottom: 2rem; /* separa del resto de cards */
+}
+
+/* Título dentro de la card (ej: “Mi experiencia…”) */
+.testimonio-card h3 {
+  font-size: 1.05rem; /* jerarquía del título */
+  font-weight: 700;
+  margin-bottom: 0.75rem; /* separa del meta */
+  color: #102a43; /* azul oscuro */
+}
+
+/* Meta: nombre · perfil · año
+   - GUÍA: info pequeña y secundaria. */
+.testimonio-meta {
+  font-size: 0.85rem; /* más pequeño */
+  color: #6b7280; /* gris */
+  margin-bottom: 0.9rem; /* separa del texto */
+}
+
+/* Texto principal del testimonio
+   - GUÍA: se asume que hay varios <p> dentro. */
+.testimonio-card p {
+  margin-bottom: 0.75rem; /* espacio entre párrafos */
+}
+
+/* Tags (chips) debajo del testimonio
+   - GUÍA: lista de palabras clave (ej: “EGBA”, “EDAD”, “2025”). */
+.testimonio-tags {
+  display: flex; /* chips en fila */
+  flex-wrap: wrap; /* si no caben, bajan */
+  gap: 0.4rem; /* separación */
+  margin-top: 0.4rem; /* separa del último párrafo */
+}
+
+/* Chip individual */
+.testimonio-tag {
+  display: inline-flex; /* alinea icono/texto si se agrega */
+  align-items: center;
+  padding: 0.28rem 0.8rem; /* tamaño de la pastilla */
+  border-radius: 999px; /* pill */
+  background: #e3f2fd; /* celeste suave */
+  color: #0c4f84; /* azul */
+  font-size: 0.78rem; /* texto pequeño */
+  font-weight: 500;
+}
+
+/* ============================
+   FILTROS DE TESTIMONIOS
+   - Botones para filtrar por categoría/año/perfil, etc.
+   ============================ */
+
+.testimonios-filtros {
+  display: flex; /* botones en fila */
+  flex-wrap: wrap; /* en móvil, bajan a otra línea */
+  gap: 0.75rem; /* separación entre filtros */
+  margin: 0.5rem 0 1.75rem; /* separa de intro y cards */
+}
+
+/* Botón de filtro (default) */
+.filtro-boton {
+  padding: 0.55rem 1.2rem; /* tamaño cómodo */
+  border-radius: 999px; /* pill */
+  border: 1px solid rgba(148, 163, 184, 0.5); /* borde tenue */
+  background: #f1f5f9; /* gris claro */
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #1f2933; /* texto oscuro */
+  cursor: pointer; /* indica interacción */
+  transition: all 0.18s ease-in-out; /* hover suave */
+}
+
+.filtro-boton:hover {
+  background: #e2efff; /* azul muy suave */
+  border-color: #0c7ac9; /* borde marca */
+  color: #0c4f84; /* texto azul */
+}
+
+/* Filtro activo
+   - GUÍA: esta clase se agrega desde JS/React al filtro seleccionado. */
+.filtro-boton-activo {
+  background: #0b3b63; /* azul oscuro */
+  border-color: #0b3b63;
+  color: #ffffff; /* texto blanco */
+}
+
+/* Grid de tarjetas (debajo del hero)
+   - GUÍA: aquí es columna, pero se deja por si luego quieres cambiar a grid real. */
+.testimonios-grid {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================
+   SECCIÓN COMENTARIOS
+   - Formulario para enviar comentario + lista de comentarios guardados.
+   ============================ */
+
+.comentarios-section {
+  margin-top: 2.5rem; /* separa de testimonios */
+  padding-top: 1.5rem; /* aire arriba del borde */
+  border-top: 1px solid rgba(148, 163, 184, 0.35); /* separador visual */
+}
+
+.comentarios-titulo {
+  font-size: 1.05rem; /* título de la sección */
+  font-weight: 600;
+  color: #102a43; /* azul oscuro */
+  margin-bottom: 1rem;
+}
+
+/* Formulario de comentarios
+   - GUÍA: card blanca con inputs y botón “Publicar”. */
+.comentarios-form {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  margin-bottom: 1.5rem; /* separa del listado */
+}
+
+/* Fila de formulario (label + input) */
+.comentarios-form-row {
+  margin-bottom: 0.9rem; /* espacio entre filas */
+}
+
+/* Label: se usa span para el texto del label */
+.comentarios-label span {
+  display: block; /* label en su propia línea */
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem; /* separa del input */
+  color: #374151; /* gris oscuro */
+}
+
+/* Inputs base (nombre/correo) y textarea (comentario) */
+.comentarios-input,
+.comentarios-textarea {
+  width: 100%; /* full width */
+  border-radius: 999px; /* pill para inputs */
+  border: 1px solid rgba(148, 163, 184, 0.7); /* borde suave */
+  padding: 0.55rem 0.95rem; /* tamaño cómodo */
+  font-size: 0.9rem;
+  outline: none; /* se reemplaza con focus custom */
+  transition: border-color 0.18s ease, box-shadow 0.18s ease; /* focus suave */
+  background: #f9fafb; /* fondo claro */
+}
+
+/* Textarea: se ve como caja, no pill */
+.comentarios-textarea {
+  border-radius: 14px; /* menos redondeo */
+  resize: vertical; /* permite crecer hacia abajo */
+  min-height: 110px; /* altura mínima para escribir */
+}
+
+/* Focus: indica campo activo */
+.comentarios-input:focus,
+.comentarios-textarea:focus {
+  border-color: #0c7ac9; /* azul marca */
+  box-shadow: 0 0 0 2px rgba(12, 122, 201, 0.18); /* ring suave */
+  background: #ffffff; /* mejora contraste */
+}
+
+/* Checkbox "Anónimo"
+   - GUÍA: fila con checkbox + texto a la par. */
+.comentarios-checkbox-row {
+  display: flex;
+  align-items: center;
+}
+
+.comentarios-checkbox-label {
+  display: inline-flex; /* alinea checkbox y texto */
+  align-items: center;
+  gap: 0.45rem; /* separación entre checkbox y texto */
+  font-size: 0.85rem;
+  color: #4b5563; /* gris */
+}
+
+.comentarios-checkbox-label input[type="checkbox"] {
+  width: 16px; /* tamaño del checkbox */
+  height: 16px;
+}
+
+/* Botón publicar comentario
+   - GUÍA: CTA principal del formulario. */
+.comentarios-boton {
+  margin-top: 0.3rem; /* separa del checkbox o último campo */
+  padding: 0.6rem 1.4rem; /* tamaño del botón */
+  border-radius: 999px; /* pill */
+  border: none; /* sólido */
+  background: #0c7ac9; /* azul marca */
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.18s ease, transform 0.12s ease; /* hover/active */
+}
+
+.comentarios-boton:hover {
+  background: #095b95; /* azul más oscuro */
+}
+
+.comentarios-boton:active {
+  transform: scale(0.98); /* sensación de click */
+}
+
+/* Lista de comentarios */
+.comentarios-lista {
+  display: flex; /* lista en columna */
+  flex-direction: column;
+  gap: 0.9rem; /* separación entre ítems */
+}
+
+/* Estado vacío */
+.comentarios-vacio {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+/* Ítem de comentario individual */
+.comentario-item {
+  background: #ffffff; /* tarjeta blanca */
+  border-radius: 16px;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid rgba(148, 163, 184, 0.3); /* borde suave */
+}
+
+/* Autor del comentario */
+.comentario-autor {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #0b3b63; /* azul oscuro */
+  margin-bottom: 0.2rem;
+}
+
+/* Texto del comentario */
+.comentario-texto {
+  font-size: 0.9rem;
+  color: #374151; /* gris oscuro */
+  line-height: 1.6;
+}
+
+/* ============================
+   RESPONSIVE
+   - Ajustes para pantallas pequeñas.
+   ============================ */
+
+@media (max-width: 900px) {
+  .grid-2 {
+    grid-template-columns: 1fr; /* el grid de 2 pasa a 1 columna */
+  }
+
+  .testimonios-section {
+    padding: 1rem 0 2rem; /* reduce padding vertical */
+  }
+
+  .testimonios-intro,
+  .testimonio-card {
+    padding: 1.3rem 1.4rem; /* reduce padding en cards */
+    border-radius: 18px; /* redondeo ligeramente menor */
+  }
+
+  .testimonios-filtros {
+    gap: 0.5rem; /* menos espacio entre botones */
+  }
+
+  .filtro-boton {
+    font-size: 0.8rem; /* texto un poco más pequeño */
+    padding: 0.45rem 0.9rem; /* botón más compacto */
+  }
+
+  .comentarios-form {
+    padding: 1rem 1.1rem; /* reduce padding del form en móvil */
+  }
+}

@@ -1,74 +1,87 @@
 /* ================================
-   Sección de contenido (Misión / Visión)
+   Página de Contenido
+   - Estilos para tarjetas de Misión y Visión.
+   - Usa variables globales definidas en `src/Style/index.css` (:root)
+   - GUÍA: Este CSS está pensado para una sección tipo “panel” con
+     un texto intro y un grid de tarjetas (Misión / Visión).
    ================================ */
 
+/* ================================
+   Sección y contenedor general
+   - Panel principal que envuelve la página/section.
+   ================================ */
 .contenido-section {
-  margin-top: 2rem;
-  padding: 1.5rem 1.75rem;
-  background-color: #ffffff;
-  border-radius: 18px;
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.05);
+  margin-top: 2rem; /* separa la sección del contenido anterior o navbar */
+  padding: 1.5rem 1.75rem; /* padding interno del panel (desktop) */
+  background-color: #ffffff; /* fondo blanco tipo tarjeta grande */
+  border-radius: 18px; /* redondeo amplio */
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.05); /* sombra suave y profesional */
 }
 
-/* Texto introductorio */
+/* Texto introductorio
+   - GUÍA: párrafo corto explicando la misión/visión antes de las tarjetas. */
 .contenido-intro {
-  margin-bottom: 1.5rem;
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: var(--text, #374151);
+  margin-bottom: 1.5rem; /* separa el texto del grid */
+  font-size: 0.95rem; /* tamaño un poco menor para que no compita con los títulos */
+  line-height: 1.6; /* legible */
+  color: var(--text, #374151); /* usa token global de texto; fallback si no existe */
 }
 
-/* Grid para las tarjetas de Misión y Visión */
+/* Grid para las tarjetas de Misión y Visión
+   - auto-fit + minmax hace que el grid se adapte según el ancho disponible.
+   - GUÍA: puedes añadir más tarjetas y el grid seguirá funcionando. */
 .contenido-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.5rem;
+  display: grid; /* activa layout en grilla */
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* tarjetas responsivas con ancho mínimo */
+  gap: 1.5rem; /* separación entre tarjetas */
 }
 
-/* Tarjeta individual (Misión o Visión) */
+/* ================================
+   Tarjetas de Misión y Visión
+   - Estilo base compartido por cada “card”.
+   ================================ */
 .contenido-card {
-  padding: 1.25rem 1.5rem;
-  background-color: #ffffff;
-  border-radius: 16px;
-  border: 1px solid #e0edf3;
-  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.04);
-  transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease,
-    border-color 0.15s ease,
-    background-color 0.15s ease;
+  padding: 1.25rem 1.5rem; /* espacio interno de la tarjeta */
+  background-color: #ffffff; /* fondo blanco */
+  border-radius: 16px; /* redondeo coherente con el panel */
+  border: 1px solid #e0edf3; /* borde suave para separar del fondo */
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.04); /* sombra ligera */
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease, background-color 0.15s ease; /* animaciones suaves */
 }
 
-/* Hover similar a las tarjetas de perfiles */
+/* Hover
+   - GUÍA: hace que la tarjeta “suba” y cambie el borde al color marca. */
 .contenido-card:hover {
-  transform: translateY(-2px);
-  border-color: var(--accent, #0b3a5d);
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
-  background-color: #e5f7fb;
+  transform: translateY(-2px); /* micro-elevación */
+  border-color: var(--accent, #0b3a5d); /* borde azul marca */
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08); /* sombra más fuerte */
+  background-color: #e5f7fb; /* tinte celeste suave */
 }
 
-/* Título de cada tarjeta (Misión / Visión) */
+/* Título de cada tarjeta (Misión / Visión)
+   - GUÍA: normalmente es un h3 o h4 dentro de la card. */
 .contenido-titulo {
-  margin: 0 0 0.5rem 0;
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: var(--accent, #0b3a5d);
+  margin: 0 0 0.5rem 0; /* elimina margen superior y separa del texto */
+  font-size: 1.05rem; /* tamaño del título */
+  font-weight: 600; /* destaca el encabezado */
+  color: var(--accent, #0b3a5d); /* color de marca con fallback */
 }
 
-/* Párrafos dentro de la tarjeta */
+/* Párrafos dentro de la tarjeta
+   - GUÍA: aplica a cualquier <p> dentro de .contenido-card. */
 .contenido-card p {
-  margin: 0;
-  font-size: 0.9rem;
-  line-height: 1.7;
-  color: var(--text, #374151);
+  margin: 0; /* elimina márgenes default para control total del espaciado */
+  font-size: 0.9rem; /* tamaño de texto del contenido */
+  line-height: 1.7; /* lectura cómoda */
+  color: var(--text, #374151); /* texto principal con fallback */
 }
 
 /* ================================
    Responsivo
+   - Ajustes para móvil: reduce padding del panel para aprovechar espacio.
    ================================ */
-
 @media (max-width: 640px) {
   .contenido-section {
-    padding: 1.25rem 1rem;
+    padding: 1.25rem 1rem; /* menos padding en pantallas pequeñas */
   }
 }

@@ -1,288 +1,318 @@
-/* ====== Página Calendario ====== */
+/* ================================
+   Página de Calendario
+   - Estilos para el calendario mensual con eventos/actividades.
+   - Usa variables globales definidas en `src/Style/index.css` (:root).
+   - GUÍA: Este CSS asume una estructura con 2 paneles: calendario (izq) + detalle/form (der).
+   ================================ */
 
+/* ================================
+   Página general
+   - Contenedor principal de la página Calendario (limita ancho y centra).
+   ================================ */
 .page.page-calendario {
-  max-width: 1100px;
-  margin: 0 auto;
+  max-width: 1100px; /* evita que el contenido se “estire” demasiado en pantallas grandes */
+  margin: 0 auto; /* centra el bloque en el viewport */
 }
 
+/* Texto introductorio debajo del título, si existe */
 .page-calendario > p {
-  margin-top: 0.75rem;
-  margin-bottom: 1.5rem;
-  color: #4b5563;
-  line-height: 1.6;
+  margin-top: 0.75rem; /* separa del encabezado */
+  margin-bottom: 1.5rem; /* separa del calendario */
+  color: #4b5563; /* gris para texto secundario */
+  line-height: 1.6; /* legibilidad */
 }
 
-/* Contenedor principal: calendario + detalle */
+/* Contenedor principal: calendario + detalle
+   - Dos columnas: panel de calendario y panel de detalle/formulario. */
 .calendario-contenedor {
-  display: grid;
-  grid-template-columns: 1.2fr 1.5fr;
-  gap: 2rem;
-  margin-bottom: 2rem;
+  display: grid; /* grid facilita dividir en columnas */
+  grid-template-columns: 1.2fr 1.5fr; /* proporción: detalle un poco más ancho */
+  gap: 2rem; /* separación entre paneles */
+  margin-bottom: 2rem; /* aire antes de la siguiente sección (si existe) */
 }
 
+/* En pantallas medianas/pequeñas, apila en una sola columna */
 @media (max-width: 900px) {
   .calendario-contenedor {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* calendario arriba, detalle abajo */
   }
 }
 
-/* ====== Tarjeta base reutilizable ====== */
-
+/* ================================
+   Paneles reutilizables
+   - Base visual compartida por el panel del calendario y el panel de detalle.
+   - GUÍA: Cambios aquí impactan ambos paneles.
+   ================================ */
 .calendario-panel,
 .calendario-detalle {
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 1.5rem 1.75rem;
-  border: 1px solid #e5e7eb;
-  box-shadow: 0 12px 25px rgba(15, 23, 42, 0.06);
+  background: #ffffff; /* tarjeta blanca */
+  border-radius: 16px; /* esquinas suaves */
+  padding: 1.5rem 1.75rem; /* espacio interno para “respirar” */
+  border: 1px solid #e5e7eb; /* borde sutil */
+  box-shadow: 0 12px 25px rgba(15, 23, 42, 0.06); /* sombra suave */
 }
 
-/* ====== Panel del calendario mensual ====== */
+/* ================================
+   Panel del calendario mensual
+   ================================ */
 
+/* Header: título del mes + botones prev/next */
 .calendario-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1rem;
+  display: flex; /* alinea título y botones en fila */
+  align-items: center; /* centra vertical */
+  justify-content: space-between; /* título a la izquierda, controles a la derecha */
+  margin-bottom: 1rem; /* separa del grid de días */
 }
 
 .calendario-header h2 {
-  font-size: 1.1rem;
+  font-size: 1.1rem; /* título del mes */
   font-weight: 600;
-  color: #111827;
+  color: #111827; /* casi negro */
 }
 
-/* Botones de navegación de mes */
+/* Botones de navegación de mes (prev/next)
+   - GUÍA: se asume que son <button> dentro de .calendario-header */
 .calendario-header button {
-  border: none;
-  background: #e0f2fe;
-  color: #0f4c81;
-  font-size: 1rem;
-  width: 32px;
+  border: none; /* elimina borde default */
+  background: #e0f2fe; /* celeste suave */
+  color: #0f4c81; /* azul principal */
+  font-size: 1rem; /* tamaño del ícono/texto */
+  width: 32px; /* botón circular */
   height: 32px;
-  border-radius: 999px;
-  display: flex;
+  border-radius: 999px; /* círculo */
+  display: flex; /* centra el ícono/texto */
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  transition: background 0.2s ease, transform 0.15s ease;
+  cursor: pointer; /* indica interacción */
+  transition: background 0.2s ease, transform 0.15s ease; /* hover suave */
 }
 
 .calendario-header button:hover {
-  background: #bfdbfe;
-  transform: translateY(-1px);
+  background: #bfdbfe; /* celeste más fuerte */
+  transform: translateY(-1px); /* micro “lift” */
 }
 
-/* Nombres de los días de la semana */
+/* Nombres de los días de la semana (Lun, Mar, etc.) */
 .calendario-semana-header {
-  display: grid;
+  display: grid; /* 7 columnas para 7 días */
   grid-template-columns: repeat(7, 1fr);
-  text-align: center;
-  font-size: 0.8rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  color: #0f4c81;
-  margin-bottom: 0.5rem;
+  text-align: center; /* centra los labels */
+  font-size: 0.8rem; /* pequeño */
+  font-weight: 600; /* legible */
+  text-transform: uppercase; /* estilo “header” */
+  color: #0f4c81; /* azul marca */
+  margin-bottom: 0.5rem; /* separa del grid de días */
 }
 
 .calendario-semana-header span {
-  padding: 0.25rem 0;
+  padding: 0.25rem 0; /* da altura y aire al header */
 }
 
 /* Cuadrícula de días */
 .calendario-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 0.35rem;
+  display: grid; /* crea la grilla del mes */
+  grid-template-columns: repeat(7, 1fr); /* 7 columnas */
+  gap: 0.35rem; /* separación entre celdas */
 }
 
-/* Celda base */
+/* Celda base
+   - GUÍA: esta clase es el “común” de vacías y días reales */
 .calendario-celda {
-  min-height: 3rem;
-  border-radius: 12px;
+  min-height: 3rem; /* altura mínima para que el número quepa bien */
+  border-radius: 12px; /* redondeo consistente */
   font-size: 0.9rem;
 }
 
-/* Celdas vacías (antes del día 1) */
+/* Celdas vacías (antes del día 1 o después del último día del mes) */
 .calendario-celda.vacia {
-  background: transparent;
+  background: transparent; /* no se ve, pero mantiene el espacio en la grilla */
 }
 
-/* Celdas de día */
+/* Celdas de día (clickeables)
+   - position: relative permite colocar el indicador (puntito) con absolute. */
 .calendario-celda.dia {
-  position: relative;
-  background: #f9fafb;
-  border: 1px solid #e5e7eb;
-  color: #111827;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: 0.45rem 0.5rem;
-  cursor: pointer;
+  position: relative; /* referencia para .calendario-indicador-actividad */
+  background: #f9fafb; /* gris muy claro */
+  border: 1px solid #e5e7eb; /* borde suave */
+  color: #111827; /* texto oscuro */
+  display: flex; /* permite ubicar el número en esquina */
+  align-items: flex-start; /* alinea arriba */
+  justify-content: flex-start; /* alinea a la izquierda */
+  padding: 0.45rem 0.5rem; /* espacio para el número */
+  cursor: pointer; /* indica que se puede seleccionar */
   transition: background 0.18s ease, border-color 0.18s ease,
-    transform 0.15s ease, box-shadow 0.15s ease, color 0.18s ease;
+    transform 0.15s ease, box-shadow 0.15s ease, color 0.18s ease; /* estados suaves */
 }
 
 .calendario-celda.dia:hover {
-  background: #eff6ff;
-  border-color: #bfdbfe;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 15px rgba(15, 23, 42, 0.06);
+  background: #eff6ff; /* azul muy suave */
+  border-color: #bfdbfe; /* borde más azul */
+  transform: translateY(-1px); /* micro elevación */
+  box-shadow: 0 6px 15px rgba(15, 23, 42, 0.06); /* sombra ligera */
 }
 
+/* Número del día (1,2,3...) */
 .calendario-numero-dia {
-  font-weight: 600;
+  font-weight: 600; /* resalta el número */
 }
 
-/* Punto indicador cuando hay actividades */
+/* Punto indicador cuando hay actividades
+   - GUÍA: se muestra dentro de la celda usando position absolute. */
 .calendario-indicador-actividad {
   position: absolute;
-  right: 6px;
+  right: 6px; /* esquina inferior derecha */
   bottom: 5px;
   width: 7px;
   height: 7px;
-  border-radius: 999px;
-  background: #0ea5e9;
+  border-radius: 999px; /* círculo */
+  background: #0ea5e9; /* azul/celeste indicador */
 }
 
-/* Día seleccionado */
+/* Día seleccionado (estado activo)
+   - GUÍA: esta clase se agrega desde React cuando el usuario selecciona un día. */
 .calendario-celda.dia.seleccionado {
-  background: #0f4c81;
+  background: #0f4c81; /* azul fuerte */
   border-color: #0f4c81;
-  color: #ffffff;
-  box-shadow: 0 12px 25px rgba(15, 23, 42, 0.18);
+  color: #ffffff; /* texto blanco */
+  box-shadow: 0 12px 25px rgba(15, 23, 42, 0.18); /* sombra más fuerte para resaltar */
 }
 
+/* Indicador en día seleccionado: se aclara para que contraste */
 .calendario-celda.dia.seleccionado .calendario-indicador-actividad {
-  background: #38bdf8;
+  background: #38bdf8; /* celeste más brillante */
 }
 
-/* Día con actividades (sin estar seleccionado) */
+/* Día con actividades (sin estar seleccionado)
+   - GUÍA: resalta el borde para “avisar” que hay algo ese día. */
 .calendario-celda.dia.con-actividades:not(.seleccionado) {
   border-color: #38bdf8;
 }
 
-/* ====== Panel de detalle y formulario ====== */
+/* ====== Panel de detalle y formulario ======
+   - Aquí se estiliza la sección derecha: lista de actividades y form para crear/editar. */
 
 .calendario-detalle h3 {
-  font-size: 1rem;
+  font-size: 1rem; /* título del panel de detalle */
   font-weight: 600;
   color: #111827;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.75rem; /* separa del contenido */
 }
 
-/* Estilo de la fecha debajo del título, si luego la formateas */
+/* Estilo de la fecha debajo del título (si está dentro de un span) */
 .calendario-detalle h3 span {
-  font-weight: 500;
-  color: #4b5563;
+  font-weight: 500; /* menos fuerte que el h3 */
+  color: #4b5563; /* gris */
 }
 
 /* Lista de actividades del día */
 .lista-actividades {
-  list-style: none;
+  list-style: none; /* sin bullets */
   padding: 0;
-  margin: 0 0 1rem 0;
+  margin: 0 0 1rem 0; /* separa de lo que viene debajo */
 }
 
+/* Fila de actividad: textos + botones */
 .actividad-item {
-  display: flex;
+  display: flex; /* textos a la izq, botones a la der */
   justify-content: space-between;
   align-items: flex-start;
-  gap: 0.75rem;
+  gap: 0.75rem; /* espacio entre columnas */
   padding: 0.6rem 0;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb; /* separador por fila */
 }
 
 .actividad-item:last-child {
-  border-bottom: none;
+  border-bottom: none; /* evita borde al final */
 }
 
+/* Bloque de textos: título fuerte + descripción */
 .actividad-textos strong {
-  display: block;
-  font-size: 0.95rem;
+  display: block; /* fuerza salto de línea */
+  font-size: 0.95rem; /* título de la actividad */
   margin-bottom: 0.15rem;
   color: #111827;
 }
 
 .actividad-textos p {
-  margin: 0;
+  margin: 0; /* elimina márgenes default */
   font-size: 0.9rem;
   color: #4b5563;
 }
 
-/* Botones de cada actividad */
+/* Botones de cada actividad (editar/eliminar, etc.) */
 .actividad-botones {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
+  display: flex; /* botones en fila */
+  flex-wrap: wrap; /* si no caben, bajan */
+  gap: 0.4rem; /* separación entre botones */
 }
 
-/* ====== Botones (coherentes con el resto de la web) ====== */
+/* ====== Botones (coherentes con el resto de la web) ======
+   - Base compartida por primario/ secundario/ peligro. */
 
 .btn-primario,
 .btn-secundario,
 .btn-peligro {
-  font-size: 0.85rem;
+  font-size: 0.85rem; /* tamaño compacto */
   font-weight: 600;
-  border-radius: 999px;
-  padding: 0.35rem 0.9rem;
-  border: none;
+  border-radius: 999px; /* pill */
+  padding: 0.35rem 0.9rem; /* padding cómodo */
+  border: none; /* por defecto sin borde (secundario lo agrega) */
   cursor: pointer;
   transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease,
-    transform 0.15s ease;
-  white-space: nowrap;
+    transform 0.15s ease; /* hover suave */
+  white-space: nowrap; /* evita que el texto se parta en dos líneas */
 }
 
-/* Azul principal tipo “Ruta EA” */
+/* Azul principal tipo “Ruta EA” (acción principal) */
 .btn-primario {
   background: #0f4c81;
   color: #ffffff;
 }
 
 .btn-primario:hover {
-  background: #0b3b64;
+  background: #0b3b64; /* un poco más oscuro */
   transform: translateY(-1px);
 }
 
-/* Botón secundario borde azul */
+/* Botón secundario: outline azul */
 .btn-secundario {
   background: #ffffff;
-  border: 1px solid #0f4c81;
+  border: 1px solid #0f4c81; /* borde azul */
   color: #0f4c81;
 }
 
 .btn-secundario:hover {
-  background: #e0f2fe;
+  background: #e0f2fe; /* celeste suave */
 }
 
-/* Botón de eliminar en rojo suave */
+/* Botón de eliminar: rojo suave (no agresivo) */
 .btn-peligro {
-  background: #fee2e2;
-  color: #b91c1c;
+  background: #fee2e2; /* rojo pastel */
+  color: #b91c1c; /* rojo fuerte */
 }
 
 .btn-peligro:hover {
-  background: #fecaca;
+  background: #fecaca; /* rojo un poco más fuerte */
 }
 
 /* ====== Formulario de actividad ====== */
 
 .calendario-detalle h4 {
-  font-size: 0.95rem;
+  font-size: 0.95rem; /* subtítulo del formulario */
   font-weight: 600;
   color: #111827;
-  margin: 0.75rem 0 0.5rem;
+  margin: 0.75rem 0 0.5rem; /* separa del contenido */
 }
 
 .form-actividad {
-  margin-top: 0.5rem;
-  display: flex;
+  margin-top: 0.5rem; /* separa del título */
+  display: flex; /* apila campos verticalmente */
   flex-direction: column;
-  gap: 0.9rem;
+  gap: 0.9rem; /* separación entre campos */
 }
 
 .campo-formulario {
-  display: flex;
+  display: flex; /* label + input en columna */
   flex-direction: column;
   gap: 0.3rem;
 }
@@ -293,30 +323,33 @@
   color: #374151;
 }
 
-/* Inputs y textarea con estilo similar al formulario de contacto */
+/* Inputs y textarea con estilo similar al formulario de contacto
+   - GUÍA: si ya tienes estilos globales, esto mantiene coherencia. */
 .campo-formulario input,
 .campo-formulario textarea {
   width: 100%;
   font-size: 0.9rem;
   padding: 0.6rem 0.75rem;
-  border-radius: 10px;
+  border-radius: 10px; /* menos redondo que un pill */
   border: 1px solid #d1d5db;
   background: #f9fafb;
   color: #111827;
-  resize: vertical;
-  font-family: inherit;
+  resize: vertical; /* textarea puede crecer hacia abajo */
+  font-family: inherit; /* hereda la fuente global */
   transition: border-color 0.18s ease, box-shadow 0.18s ease,
-    background 0.18s ease;
+    background 0.18s ease; /* focus suave */
 }
 
+/* Focus: estado de escritura */
 .campo-formulario input:focus,
 .campo-formulario textarea:focus {
-  outline: none;
-  border-color: #0ea5e9;
-  background: #ffffff;
-  box-shadow: 0 0 0 1px rgba(14, 165, 233, 0.4);
+  outline: none; /* elimina el outline default */
+  border-color: #0ea5e9; /* celeste */
+  background: #ffffff; /* aumenta contraste */
+  box-shadow: 0 0 0 1px rgba(14, 165, 233, 0.4); /* ring suave */
 }
 
+/* Contenedor de botones del formulario (guardar/cancelar, etc.) */
 .botones-formulario {
   display: flex;
   flex-wrap: wrap;
@@ -324,9 +357,9 @@
   margin-top: 0.25rem;
 }
 
-/* Separador suave */
+/* Separador suave dentro del panel de detalle */
 .calendario-detalle hr {
-  border: none;
-  border-top: 1px solid #e5e7eb;
-  margin: 1rem 0;
+  border: none; /* quita estilo default */
+  border-top: 1px solid #e5e7eb; /* línea suave */
+  margin: 1rem 0; /* aire arriba/abajo */
 }

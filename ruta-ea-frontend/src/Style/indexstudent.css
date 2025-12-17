@@ -1,0 +1,284 @@
+/* ============================
+   CALENDARIO – Estilo (ref)
+   - GUÍA: Estilos para una vista de calendario con 2 tarjetas (mes + actividades).
+   - Paleta base:
+     - Azul: #0C3C5F
+     - Celeste suave: #E0F2FE
+     - Fondo: #F5F7FB
+   ============================ */
+
+/* ============================
+   Variables de tema
+   - GUÍA: “tokens” para colores, sombras y radios.
+   - Cambia aquí y se actualiza toda la interfaz.
+   ============================ */
+:root{
+  --navy: #0C3C5F; /* azul principal (selección, botones, headings) */
+  --navy-2: #0A324F; /* azul hover (más oscuro) */
+  --sky: #E0F2FE; /* celeste suave (botones nav del mes) */
+  --bg: #F5F7FB; /* fondo general de la página */
+
+  --ink: #0F172A; /* texto principal */
+  --muted: #64748B; /* texto secundario */
+
+  --card: #FFFFFF; /* fondo de tarjetas */
+  --border: rgba(148, 163, 184, 0.45); /* borde suave */
+  --shadow: 0 18px 45px rgba(15, 23, 42, 0.06); /* sombra global */
+
+  --radius: 26px; /* redondeo grande (cards) */
+  --radius-sm: 18px; /* redondeo secundario */
+}
+
+/* ============================
+   Página
+   - GUÍA: wrapper general del calendario (padding y fondo).
+   ============================ */
+.page-calendario{
+  background: var(--bg); /* fondo gris azulado */
+  padding: 2.2rem 2rem 3rem; /* espacio alrededor del contenido */
+}
+
+.page-calendario h1{
+  font-size: 2.1rem; /* título grande */
+  line-height: 1.1; /* compacto */
+  margin: 0 0 0.6rem; /* separa de subtítulo */
+  color: var(--ink);
+  font-weight: 800;
+}
+
+/* Subtítulo corto (texto secundario) */
+.page-calendario .subtitulo{
+  margin: 0 0 0.9rem; /* separa de descripción */
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+/* Párrafo descriptivo (ancho limitado para buena lectura) */
+.page-calendario .descripcion{
+  margin: 0 0 1.7rem; /* separa del grid de tarjetas */
+  color: var(--muted);
+  max-width: 980px; /* evita líneas muy largas */
+}
+
+/* ============================
+   Layout 2 columnas (cards)
+   - GUÍA: izquierda calendario del mes, derecha actividades del día.
+   ============================ */
+.calendario-grid{
+  display: grid;
+  grid-template-columns: 1.05fr 1fr; /* izquierda ligeramente más ancha */
+  gap: 1.8rem; /* separación entre tarjetas */
+  align-items: start; /* alinea arriba (evita estiramientos) */
+}
+
+/* Card base
+   - GUÍA: clase reutilizable para ambas tarjetas (mismo look).
+   - Puedes usar .cal-card en otros paneles para mantener consistencia. */
+.cal-card{
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.6rem 1.7rem 1.7rem; /* padding cómodo */
+}
+
+/* ============================
+   CARD IZQUIERDA: CALENDARIO
+   ============================ */
+
+/* Header del calendario (título del mes + botones nav) */
+.cal-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.1rem; /* separa del grid de días */
+}
+
+/* Título del mes (ej: “Diciembre 2025”) */
+.month-title{
+  font-weight: 800;
+  color: var(--ink);
+  font-size: 1.15rem;
+  letter-spacing: 0.2px; /* micro ajuste para look “UI” */
+}
+
+/* Botones para cambiar de mes (anterior/siguiente)
+   - GUÍA: normalmente se usan con iconos tipo “<” y “>”. */
+.month-nav-btn{
+  width: 44px;
+  height: 44px;
+  border-radius: 999px; /* círculo */
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: var(--sky); /* celeste suave */
+  color: var(--navy);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform .08s ease, background .15s ease, border-color .15s ease;
+}
+
+.month-nav-btn:hover{
+  background: #D7EEFF; /* hover un poco más fuerte */
+  border-color: rgba(12, 60, 95, 0.25); /* borde con tinte azul */
+}
+
+.month-nav-btn:active{
+  transform: scale(0.98); /* sensación de click */
+}
+
+/* ============================
+   Semana + días
+   ============================ */
+
+/* Header con los nombres de los días (L, M, X...) */
+.weekdays{
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* 7 columnas (semana) */
+  gap: .55rem;
+  margin-bottom: .55rem; /* separa del grid de días */
+}
+
+.weekday{
+  text-align: center; /* centra el texto */
+  color: var(--navy); /* azul marca */
+  font-weight: 800;
+  font-size: 0.78rem; /* pequeño */
+  letter-spacing: .6px; /* estilo “caps UI” */
+}
+
+/* Grid principal de los días del mes */
+.days-grid{
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: .55rem; /* separación entre días */
+}
+
+/* Botón de día (cada casilla)
+   - GUÍA: cada día es clickeable excepto los “is-out”. */
+.day-btn{
+  height: 44px; /* tamaño consistente con botones del header */
+  border-radius: 12px; /* redondeo suave */
+  border: 1px solid rgba(148, 163, 184, 0.35); /* borde tenue */
+  background: #FFFFFF;
+  color: var(--ink);
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease, transform .08s ease;
+}
+
+.day-btn:hover{
+  background: #F8FAFC; /* hover claro */
+  border-color: rgba(12, 60, 95, 0.25); /* borde azul suave */
+}
+
+.day-btn:active{
+  transform: scale(0.98); /* feedback de click */
+}
+
+/* Día seleccionado (ej: el día activo en la app) */
+.day-btn.is-selected{
+  background: var(--navy);
+  border-color: var(--navy);
+  color: #FFFFFF;
+}
+
+/* Días fuera del mes (celdas “relleno” antes/después)
+   - GUÍA: se ven apagados y no deberían ser clickeables. */
+.day-btn.is-out{
+  opacity: .35;
+  cursor: default;
+}
+
+/* ============================
+   CARD DERECHA: ACTIVIDADES
+   - GUÍA: lista de actividades y formulario para crear/editar.
+   ============================ */
+
+/* Título del panel de actividades */
+.act-title{
+  font-weight: 800;
+  color: var(--ink);
+  margin: 0 0 0.35rem; /* separa de lista/estado vacío */
+}
+
+/* Texto cuando no hay actividades */
+.act-empty{
+  color: var(--muted);
+  margin: 0.35rem 0 1rem;
+}
+
+/* Separador visual (línea fina) */
+.divider{
+  height: 1px;
+  background: rgba(148, 163, 184, 0.35);
+  border: 0; /* evita estilos default */
+  margin: 1.1rem 0;
+}
+
+/* Label del formulario (título de cada input) */
+.form-label{
+  display: block;
+  font-weight: 800;
+  color: var(--ink);
+  margin: 0.7rem 0 0.45rem; /* espacio arriba y abajo del label */
+  font-size: .92rem;
+}
+
+/* Inputs del formulario (texto corto) y textarea (texto largo)
+   - GUÍA: comparten estilo base. */
+.input,
+.textarea{
+  width: 100%;
+  border-radius: 14px; /* redondeo consistente */
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  background: #FFFFFF;
+  padding: 0.95rem 1rem; /* padding cómodo */
+  outline: none; /* se reemplaza con focus custom */
+  transition: border-color .15s ease, box-shadow .15s ease;
+  color: var(--ink);
+}
+
+/* Textarea: caja más alta para detalles */
+.textarea{
+  min-height: 125px; /* altura mínima */
+  resize: vertical; /* solo crece hacia abajo */
+}
+
+/* Focus: ring celeste suave */
+.input:focus,
+.textarea:focus{
+  border-color: rgba(12, 60, 95, 0.45); /* borde azul suave */
+  box-shadow: 0 0 0 4px rgba(224, 242, 254, 0.85); /* ring */
+}
+
+/* Botón principal del formulario
+   - GUÍA: acción principal (Agregar/Guardar actividad). */
+.btn-primary{
+  margin-top: 1rem; /* separa del último campo */
+  width: 100%; /* full width para que se sienta “principal” */
+  border: 0;
+  border-radius: 14px;
+  background: var(--navy);
+  color: #FFFFFF;
+  font-weight: 800;
+  padding: 0.95rem 1rem;
+  cursor: pointer;
+  transition: background .15s ease, transform .08s ease;
+}
+
+.btn-primary:hover{ background: var(--navy-2); } /* hover: más oscuro */
+.btn-primary:active{ transform: scale(0.99); } /* active: micro presión */
+
+/* ============================
+   Responsive
+   - GUÍA: en pantallas pequeñas el grid pasa a 1 columna (tarjetas apiladas).
+   ============================ */
+@media (max-width: 980px){
+  .calendario-grid{
+    grid-template-columns: 1fr; /* apila calendario + actividades */
+  }
+  .page-calendario{
+    padding: 1.6rem 1.2rem 2.2rem; /* reduce padding en móvil */
+  }
+}

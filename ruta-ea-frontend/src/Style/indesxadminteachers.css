@@ -1,0 +1,227 @@
+/* src/Style/indexadminteachers.css */
+
+/* ============================================================
+   PALETA / TOKENS (variables globales)
+   - Centraliza colores, radios y sombras para mantener consistencia.
+   - Si cambias aquí, se actualiza el estilo de toda la vista.
+   ============================================================ */
+:root {
+  --blue-900: #0b3a5d;   /* azul principal: botones primarios / acentos */
+  --blue-800: #1b4a6b;   /* azul hover: feedback al pasar el mouse */
+  --blue-700: #2b5b7c;   /* azul secundario: apoyo para variaciones */
+  --bg: #f4f7fb;         /* fondo general del layout */
+  --panel: #ffffff;      /* color base de tarjetas/paneles */
+  --line: rgba(148, 163, 184, 0.45); /* bordes sutiles tipo “línea” */
+  --text: #0f172a;       /* texto principal (títulos / contenido) */
+  --muted: #475569;      /* texto secundario (metas / labels) */
+
+  --radius-xl: 20px;     /* borde redondeado para tarjetas grandes */
+  --radius-lg: 14px;     /* borde redondeado intermedio */
+  --shadow: 0 18px 45px rgba(15, 23, 42, 0.06); /* sombra suave profesional */
+}
+
+/* ============================================================
+   LAYOUT BASE
+   - Estructura general del panel admin: sidebar + main.
+   - Si ya existe en tu proyecto, esto lo refina sin romperlo.
+   ============================================================ */
+.admin-layout {
+  min-height: 100vh;     /* asegura que el panel ocupe toda la altura */
+  display: flex;         /* permite sidebar a la izquierda y main a la derecha */
+  background: var(--bg); /* fondo general */
+}
+
+.admin-main {
+  flex: 1;               /* ocupa el espacio restante (a la par del sidebar) */
+  padding: 2rem 2.2rem;  /* aire interno del contenido */
+}
+
+/* ============================================================
+   PÁGINA ESPECÍFICA: AdminTeachers
+   - Contenedor principal para limitar el ancho y centrar contenido.
+   ============================================================ */
+.admin-teachers {
+  max-width: 1200px;     /* ancho máximo del contenido (evita líneas muy largas) */
+  margin: 0 auto;        /* centra el contenido horizontalmente */
+}
+
+/* ============================================================
+   ENCABEZADO
+   - Sección superior: título + meta + buscador.
+   - Flex + wrap permite responsividad sin perder orden.
+   ============================================================ */
+.admin-teachers__header {
+  display: flex;                 /* distribuye título y buscador en fila */
+  justify-content: space-between;/* separa extremos (izq/der) */
+  align-items: flex-start;       /* alinea arriba para mejor lectura */
+  gap: 1rem;                     /* espacio entre columnas */
+  flex-wrap: wrap;               /* permite saltar de línea en pantallas pequeñas */
+  margin-bottom: 1.2rem;         /* separación con el listado de tarjetas */
+}
+
+.admin-teachers__title {
+  margin: 0;                     /* elimina margen por defecto del h1 */
+  font-size: 1.8rem;             /* jerarquía visual del título */
+  font-weight: 800;              /* peso fuerte (estilo dashboard) */
+  color: var(--text);            /* color de texto principal */
+  letter-spacing: -0.02em;       /* micro-ajuste para verse más moderno */
+}
+
+.admin-teachers__meta {
+  margin: 0.45rem 0 0;           /* separación con el título */
+  color: var(--muted);           /* texto secundario */
+  font-size: 0.98rem;            /* ligeramente menor que el título */
+}
+
+/* ============================================================
+   BUSCADOR
+   - Contenedor y input de búsqueda.
+   - El ancho se adapta, pero mantiene un mínimo para usabilidad.
+   ============================================================ */
+.admin-teachers__search {
+  min-width: 260px;              /* evita que el buscador quede demasiado pequeño */
+  width: 360px;                  /* ancho “ideal” */
+  max-width: 100%;               /* en móvil, no se desborda */
+}
+
+.admin-teachers__searchInput {
+  width: 100%;                   /* ocupa todo el ancho del contenedor */
+  padding: 0.75rem 0.85rem;      /* tamaño cómodo para escribir */
+  border-radius: 12px;           /* look moderno */
+  border: 1px solid var(--line); /* borde sutil consistente con la UI */
+  background: #fff;              /* fondo blanco del input */
+  outline: none;                 /* elimina contorno default del navegador */
+  font-size: 0.95rem;            /* tamaño de texto del input */
+  color: var(--text);            /* color del texto escrito */
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04); /* relieve suave */
+}
+
+.admin-teachers__searchInput::placeholder {
+  color: #94a3b8;                /* placeholder claro y discreto */
+}
+
+.admin-teachers__searchInput:focus {
+  border-color: rgba(11, 58, 93, 0.55);          /* refuerza azul al enfocar */
+  box-shadow: 0 0 0 4px rgba(11, 58, 93, 0.12);  /* “ring” accesible */
+}
+
+/* ============================================================
+   ESTADOS (loading / vacío / error)
+   - Mensajes informativos debajo del header o del listado.
+   ============================================================ */
+.admin-teachers__state {
+  margin-top: 0.8rem;            /* separa el mensaje del header */
+  color: var(--muted);           /* estado “normal” (info) */
+}
+
+.admin-teachers__state--error {
+  color: #b91c1c;                            /* rojo accesible para error */
+  background: rgba(185, 28, 28, 0.07);       /* fondo muy suave */
+  border: 1px solid rgba(185, 28, 28, 0.18); /* borde para delimitar */
+  padding: 0.8rem 0.9rem;                    /* espacio interno */
+  border-radius: 12px;                       /* coherente con inputs */
+}
+
+/* ============================================================
+   TARJETAS DE DOCENTES
+   - Card contenedor de cada docente.
+   - Mantiene consistencia visual con el dashboard (panel + sombra + borde).
+   ============================================================ */
+.teacher-card {
+  background: var(--panel);      /* fondo blanco */
+  border-radius: var(--radius-xl);/* esquinas redondeadas grandes */
+  box-shadow: var(--shadow);     /* sombra global definida en tokens */
+  border: 1px solid var(--line); /* borde sutil */
+  padding: 1.05rem 1.15rem;      /* espacio interno */
+  margin-top: 0.9rem;            /* separación entre tarjetas */
+}
+
+.teacher-card__name {
+  margin: 0;                     /* elimina margen default del h2/h3 */
+  font-size: 1.05rem;            /* jerarquía: título de tarjeta */
+  font-weight: 800;              /* refuerza el nombre */
+  color: var(--text);            /* texto principal */
+}
+
+.teacher-card__info {
+  margin-top: 0.45rem;           /* separa del nombre */
+  color: var(--muted);           /* texto secundario */
+  font-size: 0.95rem;            /* lectura cómoda */
+  display: grid;                 /* organiza líneas de info en columna */
+  gap: 0.2rem;                   /* separación sutil entre filas */
+}
+
+.teacher-card__actions {
+  margin-top: 0.85rem;           /* separa acciones de la info */
+  display: flex;                 /* botones en fila */
+  gap: 0.65rem;                  /* separación entre botones */
+  flex-wrap: wrap;               /* si no caben, saltan de línea sin romper */
+}
+
+/* ============================================================
+   BOTONES (base)
+   - Clase .btn como “componente” reutilizable.
+   - Variantes: primary / outline / danger.
+   ============================================================ */
+.btn {
+  appearance: none;              /* normaliza estilos entre navegadores */
+  border: 1px solid transparent; /* permite que variantes definan el borde */
+  border-radius: 999px;          /* estilo “pill” */
+  padding: 0.62rem 0.95rem;      /* tamaño cómodo */
+  font-weight: 700;              /* botón con presencia */
+  font-size: 0.95rem;            /* tamaño consistente con inputs */
+  cursor: pointer;               /* cursor de acción */
+  transition: transform 0.05s ease, background 0.15s ease, border-color 0.15s ease; /* feedback */
+}
+
+.btn:active {
+  transform: translateY(1px);    /* micro-animación al hacer click */
+}
+
+/* Variante: botón principal (acciones primarias como “Editar/Guardar”) */
+.btn-primary {
+  background: var(--blue-900);   /* azul principal */
+  color: #fff;                   /* texto blanco por contraste */
+}
+
+.btn-primary:hover {
+  background: var(--blue-800);   /* oscurece para indicar hover */
+}
+
+/* Variante: contorno (acciones secundarias como “Ver detalles”) */
+.btn-outline {
+  background: #fff;                           /* fondo blanco */
+  color: var(--blue-900);                     /* texto azul */
+  border-color: rgba(11, 58, 93, 0.35);       /* borde azul sutil */
+}
+
+.btn-outline:hover {
+  background: rgba(11, 58, 93, 0.06);         /* tinte azul muy suave */
+  border-color: rgba(11, 58, 93, 0.5);        /* borde ligeramente más fuerte */
+}
+
+/* Variante: “Eliminar” (sobria y profesional, sin salir de la estética) */
+.btn-danger {
+  background: rgba(185, 28, 28, 0.08);        /* rojo suave */
+  color: #991b1b;                             /* rojo oscuro para texto */
+  border-color: rgba(185, 28, 28, 0.22);      /* borde rojo tenue */
+}
+
+.btn-danger:hover {
+  background: rgba(185, 28, 28, 0.12);        /* refuerza hover */
+  border-color: rgba(185, 28, 28, 0.32);      /* borde más visible */
+}
+
+/* ============================================================
+   RESPONSIVE
+   - Ajustes para pantallas pequeñas (móvil/tablet).
+   - Reduce padding y tamaño de título para evitar desbordes.
+   ============================================================ */
+@media (max-width: 768px) {
+  .admin-main {
+    padding: 1.4rem 1.1rem;      /* menos padding en móvil */
+  }
+  .admin-teachers__title {
+    font-size: 1.5rem;           /* título más compacto */
+  }
+}

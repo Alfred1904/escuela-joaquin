@@ -1,49 +1,63 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext.jsx";
-import "../Style/index-auth.css";
-import { postData } from "../services/api.js";
+import React, { useState } from "react"; // useState para manejar estados del formulario
+import { useNavigate } from "react-router-dom"; // navegación programática después de registrar
+import { useAuth } from "../context/AuthContext.jsx"; // contexto de autenticación (si lo usas en el proyecto)
+import "../Style/indexregistro.css"; // estilos del registro
+import { postData } from "../services/api.js"; // helper para enviar POST al backend
 
 const Registro = () => {
-  const { registrar } = useAuth();
-  const navigate = useNavigate();
+  const { registrar } = useAuth(); // (Actualmente no se usa) quedaría para integrar registro vía AuthContext
+  const navigate = useNavigate(); // permite redirigir al usuario (ej: /login)
 
-  const [nombreCompleto, setNombreCompleto] = useState("");
-  const [usuario, setUsuario] = useState("");
-  const [email, setEmail] = useState("");
-  const [confirmarEmail, setConfirmarEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmarPassword, setConfirmarPassword] = useState("");
-  const [aceptaTerminos, setAceptaTerminos] = useState(false);
+  // =========================
+  // Estados del formulario UI
+  // =========================
+  const [nombreCompleto, setNombreCompleto] = useState(""); // (Actualmente no se usa) campo opcional si decides unificar nombres
+  const [usuario, setUsuario] = useState(""); // username
+  const [email, setEmail] = useState(""); // correo principal
+  const [confirmarEmail, setConfirmarEmail] = useState(""); // confirmación de correo
+  const [password, setPassword] = useState(""); // contraseña
+  const [confirmarPassword, setConfirmarPassword] = useState(""); // confirmación de contraseña
+  const [aceptaTerminos, setAceptaTerminos] = useState(false); // checkbox términos
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [role, setRole] = useState("student");
-  const [numTelefono, setNumTelefono] = useState("");
-  const [numCedula, setNumCedula] = useState("");
-  const [fechaNacimiento, setFechaNacimiento] = useState("");
+  // ==============================
+  // Estados adicionales (payload)
+  // ==============================
+  const [firstName, setFirstName] = useState(""); // first_name para backend
+  const [lastName, setLastName] = useState(""); // last_name para backend
+  const [role, setRole] = useState("student"); // rol por defecto
+  const [numTelefono, setNumTelefono] = useState(""); // teléfono
+  const [numCedula, setNumCedula] = useState(""); // cédula
+  const [fechaNacimiento, setFechaNacimiento] = useState(""); // fecha de nacimiento
 
+  // Estado para bloquear el botón mientras se envía la petición
   const [enviando, setEnviando] = useState(false);
 
+  // ==========================================
+  // Envío del formulario: validación + POST API
+  // ==========================================
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // evita recarga completa de la página
 
+    // Validación: correo y confirmación deben coincidir
     if (email !== confirmarEmail) {
       alert("El correo y la confirmación no coinciden.");
       return;
     }
+    // Validación: contraseña y confirmación deben coincidir
     if (password !== confirmarPassword) {
       alert("La contraseña y su confirmación no coinciden.");
       return;
     }
+    // Validación: aceptar términos es obligatorio
     if (!aceptaTerminos) {
       alert("Debes aceptar los términos y condiciones.");
       return;
     }
 
     try {
-      setEnviando(true);
+      setEnviando(true); // bloquea UI y cambia texto del botón
 
+      // Objeto final que se envía al backend (ajusta keys según tu serializer/model)
       const objUsuario = {
         first_name: firstName,
         last_name: lastName,
@@ -56,12 +70,15 @@ const Registro = () => {
         fecha_nacimiento: fechaNacimiento,
       };
 
+      // Envío al endpoint de creación de usuario
       const peticion = await postData("usuario/", objUsuario);
       console.log("Usuario creado en el backend:", peticion);
 
+      // Feedback al usuario y redirección al login
       alert("Registro completado. Ahora puedes iniciar sesión.");
       navigate("/login");
     } catch (error) {
+      // Manejo básico de errores (depende de cómo postData lance/retorne errores)
       console.error(error);
       if (error.data) {
         alert("Error al registrar en el servidor: " + JSON.stringify(error.data));
@@ -69,13 +86,15 @@ const Registro = () => {
         alert("Ocurrió un error al registrar el usuario en el servidor.");
       }
     } finally {
-      setEnviando(false);
+      setEnviando(false); // vuelve a habilitar el botón
     }
   };
 
   return (
+    // Contenedor general del layout auth (pantalla de registro)
     <div className="auth-page">
       <div className="auth-card">
+        {/* Columna izquierda: identidad/intro */}
         <div className="auth-intro">
           <div className="auth-logo">
             <span className="auth-logo-icon">EA</span>
@@ -92,24 +111,25 @@ const Registro = () => {
           </p>
         </div>
 
+        {/* Columna derecha: formulario */}
         <div className="auth-form-wrapper">
           <form className="auth-form" onSubmit={handleSubmit}>
+            {/* Username */}
             <div className="auth-row">
-         
-
               <label className="auth-field">
                 <div className="field-label">Nombre de usuario</div>
                 <input
                   type="text"
                   name="usuario"
                   value={usuario}
-                  onChange={(e) => setUsuario(e.target.value)}
+                  onChange={(e) => setUsuario(e.target.value)} // actualiza el estado username
                   required
                   placeholder="Ej: jgarcia.monge"
                 />
               </label>
             </div>
 
+            {/* First/Last name */}
             <div className="auth-row">
               <label className="auth-field">
                 <div className="field-label">Nombre (first_name)</div>
@@ -117,7 +137,7 @@ const Registro = () => {
                   type="text"
                   name="first_name"
                   value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
+                  onChange={(e) => setFirstName(e.target.value)} // guarda first_name para backend
                   placeholder="Nombre"
                 />
               </label>
@@ -128,12 +148,13 @@ const Registro = () => {
                   type="text"
                   name="last_name"
                   value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
+                  onChange={(e) => setLastName(e.target.value)} // guarda last_name para backend
                   placeholder="Apellidos"
                 />
               </label>
             </div>
 
+            {/* Email + confirmación */}
             <div className="auth-row">
               <label className="auth-field">
                 <div className="field-label">Correo electrónico</div>
@@ -141,7 +162,7 @@ const Registro = () => {
                   type="email"
                   name="email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)} // guarda email
                   required
                   placeholder="tu_correo@example.com"
                 />
@@ -153,13 +174,14 @@ const Registro = () => {
                   type="email"
                   name="confirmarEmail"
                   value={confirmarEmail}
-                  onChange={(e) => setConfirmarEmail(e.target.value)}
+                  onChange={(e) => setConfirmarEmail(e.target.value)} // guarda confirmación
                   required
                   placeholder="Repite tu correo"
                 />
               </label>
             </div>
 
+            {/* Password + confirmación */}
             <div className="auth-row">
               <label className="auth-field">
                 <div className="field-label">Contraseña</div>
@@ -167,7 +189,7 @@ const Registro = () => {
                   type="password"
                   name="password"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => setPassword(e.target.value)} // guarda contraseña
                   required
                   minLength={8}
                   placeholder="Mínimo 8 caracteres"
@@ -180,7 +202,7 @@ const Registro = () => {
                   type="password"
                   name="confirmarPassword"
                   value={confirmarPassword}
-                  onChange={(e) => setConfirmarPassword(e.target.value)}
+                  onChange={(e) => setConfirmarPassword(e.target.value)} // guarda confirmación contraseña
                   required
                   minLength={8}
                   placeholder="Repite la contraseña"
@@ -188,6 +210,7 @@ const Registro = () => {
               </label>
             </div>
 
+            {/* Teléfono + cédula */}
             <div className="auth-row">
               <label className="auth-field">
                 <div className="field-label">Número de teléfono</div>
@@ -195,7 +218,7 @@ const Registro = () => {
                   type="tel"
                   name="num_telefono"
                   value={numTelefono}
-                  onChange={(e) => setNumTelefono(e.target.value)}
+                  onChange={(e) => setNumTelefono(e.target.value)} // guarda teléfono
                   placeholder="Ej: 8888-8888"
                 />
               </label>
@@ -206,12 +229,13 @@ const Registro = () => {
                   type="text"
                   name="num_cedula"
                   value={numCedula}
-                  onChange={(e) => setNumCedula(e.target.value)}
+                  onChange={(e) => setNumCedula(e.target.value)} // guarda cédula
                   placeholder="Ej: 1-1111-1111"
                 />
               </label>
             </div>
 
+            {/* Fecha nacimiento + rol */}
             <div className="auth-row">
               <label className="auth-field">
                 <div className="field-label">Fecha de nacimiento</div>
@@ -219,7 +243,7 @@ const Registro = () => {
                   type="date"
                   name="fecha_nacimiento"
                   value={fechaNacimiento}
-                  onChange={(e) => setFechaNacimiento(e.target.value)}
+                  onChange={(e) => setFechaNacimiento(e.target.value)} // guarda fecha
                 />
               </label>
 
@@ -228,19 +252,22 @@ const Registro = () => {
                 <select
                   name="role"
                   value={role}
-                  onChange={(e) => setRole(e.target.value)}
+                  onChange={(e) => setRole(e.target.value)} // cambia rol que se enviará al backend
                 >
                   <option value="student">Estudiante</option>
+                  <option value="teacher">Docente</option>
+                  <option value="admin">Administrativo</option>
                 </select>
               </label>
             </div>
 
+            {/* Aceptación de términos */}
             <label className="auth-checkbox">
               <input
                 type="checkbox"
                 name="aceptaTerminos"
                 checked={aceptaTerminos}
-                onChange={(e) => setAceptaTerminos(e.target.checked)}
+                onChange={(e) => setAceptaTerminos(e.target.checked)} // guarda true/false
                 aria-label="Acepto términos"
               />
               <span>
@@ -249,11 +276,13 @@ const Registro = () => {
               </span>
             </label>
 
+            {/* Botón principal (se deshabilita mientras "enviando" es true) */}
             <button type="submit" className="auth-button" disabled={enviando}>
               {enviando ? "ENVIANDO..." : "REGISTRARME"}
             </button>
           </form>
 
+          {/* Texto final de ayuda (podrías convertirlo en Link a /login si deseas) */}
           <p className="auth-footer-text">
             ¿Ya tienes una cuenta? Puedes iniciar sesión desde la pantalla de
             acceso.
@@ -264,4 +293,4 @@ const Registro = () => {
   );
 };
 
-export default Registro;
+export default Registro; // Exporta el componente para usarlo en tu Routing (ruta /registro)

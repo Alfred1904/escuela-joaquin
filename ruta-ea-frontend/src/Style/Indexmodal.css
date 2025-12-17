@@ -1,0 +1,283 @@
+/* ============================
+   PERFILES – Estilo (ref imagen)
+   - Paleta base:
+     - Azul principal: #0C3C5F
+     - Fondo: #F5F7FB
+     - Bordes: rgba(148,163,184,.45)
+   - GUÍA: Este CSS arma una página tipo “panel” con un formulario y un bloque de foto.
+   ============================ */
+
+/* ============================
+   Variables de tema
+   - GUÍA: Tokens reutilizables para mantener consistencia visual en toda la página.
+   - Si cambias aquí, se actualiza el look completo.
+   ============================ */
+:root{
+  --navy:#0C3C5F; /* azul principal (botones/acentos) */
+  --navy2:#0A324F; /* azul para hover */
+  --bg:#F5F7FB; /* fondo general */
+
+  --card:#FFFFFF; /* fondo de tarjetas/paneles */
+  --ink:#0F172A; /* color de texto principal */
+  --muted:#64748B; /* texto secundario */
+
+  --border:rgba(148,163,184,.45); /* borde suave */
+  --border2:rgba(148,163,184,.55); /* borde un poco más fuerte (inputs) */
+  --shadow:0 18px 45px rgba(15,23,42,.06); /* sombra “elevación” */
+
+  --radius:26px; /* radio grande para paneles */
+  --radius-sm:18px; /* radio mediano */
+  --pill:999px; /* pill para inputs/botones */
+}
+
+/* ============================
+   Página
+   - GUÍA: .page-perfiles es el wrapper de la vista “Perfiles”.
+   - min-height considera navbar (72px) para que no quede cortada.
+   ============================ */
+.page-perfiles{
+  background: var(--bg); /* fondo suave */
+  min-height: calc(100vh - 72px); /* alto mínimo (viewport menos navbar) */
+  padding: 2.2rem 1.6rem 3rem; /* espacio alrededor del panel */
+}
+
+/* ============================
+   Panel contenedor grande
+   - GUÍA: “card grande” semi-transparente para que se vea elegante sobre el fondo.
+   ============================ */
+.perfiles-panel{
+  max-width: 1220px; /* limita el ancho (desktop) */
+  margin: 0 auto; /* centra el panel */
+  background: rgba(255,255,255,.92); /* blanco con leve transparencia */
+  border: 1px solid var(--border); /* borde sutil */
+  border-radius: var(--radius); /* redondeo grande */
+  box-shadow: var(--shadow); /* sombra general */
+  padding: 2.0rem 2.2rem 2.4rem; /* padding interno */
+}
+
+/* ============================
+   Encabezado
+   - GUÍA: título, lead y descripción arriba del formulario.
+   ============================ */
+.perfiles-title{
+  margin: 0 0 .7rem; /* separa del texto siguiente */
+  font-size: 2.1rem; /* título grande */
+  line-height: 1.1; /* compacto para verse “fuerte” */
+  font-weight: 900; /* muy marcado */
+  color: var(--ink); /* texto principal */
+}
+
+.perfiles-lead{
+  margin: 0 0 1rem; /* separa de la descripción */
+  color: var(--muted); /* texto secundario */
+  font-size: 1rem;
+}
+
+.perfiles-desc{
+  margin: 0 0 1.2rem; /* separa del bloque nota o del formulario */
+  color: var(--muted);
+  line-height: 1.55; /* lectura */
+  max-width: 1050px; /* evita líneas demasiado largas */
+}
+
+/* Texto destacado tipo nota (como en la captura)
+   - GUÍA: útil para aclaraciones, requisitos o instrucciones rápidas. */
+.perfiles-note{
+  margin: 0 0 1.6rem; /* separa del formulario */
+  padding-left: .9rem; /* espacio para el borde izquierdo */
+  border-left: 4px solid rgba(12,60,95,.20); /* barra sutil de acento */
+  color: #334155; /* gris oscuro */
+  line-height: 1.55;
+}
+
+/* ============================
+   Tarjeta del formulario
+   - GUÍA: contenedor blanco donde vive el formulario (más destacado que el panel).
+   ============================ */
+.perfiles-card{
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 14px 35px rgba(15,23,42,.05); /* sombra propia */
+  padding: 1.6rem 1.6rem; /* padding interno */
+}
+
+/* Layout interno: foto izquierda / form derecha
+   - GUÍA: 2 columnas: bloque foto fijo + campos flexibles. */
+.perfiles-form-layout{
+  display: grid; /* grid para controlar columnas */
+  grid-template-columns: 220px 1fr; /* izquierda fija, derecha flexible */
+  gap: 1.8rem; /* separación */
+  align-items: start; /* evita que la columna de foto se estire raro */
+}
+
+/* ============================
+   Bloque foto
+   - GUÍA: placeholder circular para foto o iniciales.
+   ============================ */
+.foto-box{
+  display: flex;
+  align-items: flex-start; /* alinea arriba */
+  justify-content: center; /* centra el círculo en desktop */
+  padding-top: .25rem; /* ajusta visualmente con el primer input */
+}
+
+.foto-circle{
+  width: 170px;
+  height: 170px;
+  border-radius: 999px; /* círculo perfecto */
+  background: #DFF3FB;              /* celeste suave */
+  border: 1px solid rgba(12,60,95,.10); /* borde suave */
+  display: flex; /* centra el texto dentro */
+  align-items: center;
+  justify-content: center;
+  color: var(--navy); /* texto azul */
+  font-weight: 900; /* fuerte */
+  font-size: .95rem; /* tamaño del placeholder */
+  text-align: center;
+}
+
+/* ============================
+   Campos
+   - GUÍA: contenedor de inputs. Por defecto es 1 columna.
+   ============================ */
+.perfiles-fields{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.1rem; /* separación entre campos */
+}
+
+/* Si tienes filas 2 columnas (opcional)
+   - GUÍA: usa .row-2 cuando quieras dos campos en la misma fila. */
+.row-2{
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* dos columnas iguales */
+  gap: 1.1rem;
+}
+
+/* Contenedor de un campo: label + input/select/textarea */
+.field{
+  display: flex;
+  flex-direction: column;
+  gap: .45rem; /* espacio entre label e input */
+}
+
+.field label{
+  font-weight: 800; /* label bien marcado */
+  color: var(--ink);
+  font-size: .9rem;
+}
+
+/* Inputs tipo “pill” como la imagen
+   - GUÍA: estilos base para input, select y textarea (luego textarea se ajusta). */
+.field input,
+.field select,
+.field textarea{
+  width: 100%;
+  border-radius: var(--pill); /* pill */
+  border: 1px solid var(--border2); /* borde más visible */
+  background: #fff;
+  height: 44px; /* alto consistente (input/select) */
+  padding: 0 1rem; /* padding horizontal */
+  outline: none; /* se reemplaza con focus custom */
+  color: var(--ink);
+  transition: border-color .15s ease, box-shadow .15s ease; /* focus suave */
+}
+
+/* Textarea: se ve como caja (no pill) para escribir más cómodo */
+.field textarea{
+  border-radius: 18px; /* radio mediano */
+  min-height: 110px; /* altura mínima */
+  padding: .9rem 1rem; /* padding vertical y horizontal */
+  height: auto; /* permite crecer */
+  resize: vertical; /* solo cambia altura */
+}
+
+/* Placeholder: color secundario (más tenue) */
+.field input::placeholder,
+.field textarea::placeholder{
+  color: rgba(100,116,139,.9);
+}
+
+/* Focus: feedback visual cuando el usuario escribe */
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+  border-color: rgba(12,60,95,.55); /* borde azul más fuerte */
+  box-shadow: 0 0 0 4px rgba(224,242,254,.9); /* ring celeste */
+}
+
+/* ============================
+   Errores
+   - GUÍA: agrega la clase .is-error al input/select/textarea cuando la validación falle.
+   - .error-text es el mensaje debajo del campo.
+   ============================ */
+.is-error{
+  border-color: rgba(220,38,38,.55) !important; /* rojo */
+  box-shadow: 0 0 0 4px rgba(254,226,226,.85) !important; /* ring rojo suave */
+}
+
+.field .error-text{
+  color: #b91c1c; /* rojo fuerte */
+  font-size: .82rem; /* pequeño */
+  font-weight: 700;
+}
+
+/* ============================
+   Acciones
+   - GUÍA: contenedor de botones (Guardar/Cancelar).
+   - En desktop se alinean a la derecha.
+   ============================ */
+.perfiles-actions{
+  margin-top: .7rem; /* separa de los campos */
+  display: flex;
+  gap: .9rem; /* espacio entre botones */
+  justify-content: flex-end; /* alineación a la derecha */
+}
+
+/* Botón primario (acción principal) */
+.btn-primary{
+  border: 0; /* sin borde */
+  background: var(--navy); /* azul marca */
+  color: #fff;
+  font-weight: 900;
+  border-radius: var(--pill); /* pill */
+  padding: .85rem 1.25rem; /* tamaño cómodo */
+  cursor: pointer;
+  transition: background .15s ease, transform .08s ease; /* hover/active */
+}
+
+.btn-primary:hover{ background: var(--navy2); } /* hover: azul más oscuro */
+.btn-primary:active{ transform: scale(.99); } /* active: micro presión */
+
+/* Botón secundario (outline) */
+.btn-secondary{
+  border: 1px solid rgba(12,60,95,.28); /* borde azul tenue */
+  background: #fff; /* fondo blanco */
+  color: var(--navy); /* texto azul */
+  font-weight: 900;
+  border-radius: var(--pill);
+  padding: .85rem 1.25rem;
+  cursor: pointer;
+  transition: background .15s ease, transform .08s ease, border-color .15s ease;
+}
+
+.btn-secondary:hover{
+  background: rgba(224,242,254,.65); /* celeste suave */
+  border-color: rgba(12,60,95,.35); /* borde un poco más fuerte */
+}
+.btn-secondary:active{ transform: scale(.99); } /* active: micro presión */
+
+/* ============================
+   Responsive
+   - GUÍA: en pantallas pequeñas se apila todo y los botones pasan a full width.
+   ============================ */
+@media (max-width: 980px){
+  .perfiles-panel{ padding: 1.6rem 1.2rem 2rem; } /* menos padding */
+  .perfiles-form-layout{ grid-template-columns: 1fr; } /* apila foto + form */
+  .foto-box{ justify-content: flex-start; } /* foto a la izquierda */
+  .foto-circle{ width: 150px; height: 150px; } /* círculo un poco más pequeño */
+  .row-2{ grid-template-columns: 1fr; } /* filas dobles pasan a 1 columna */
+  .perfiles-actions{ justify-content: stretch; } /* botones ocupan todo el ancho */
+  .btn-primary, .btn-secondary{ width: 100%; } /* botones full width */
+}

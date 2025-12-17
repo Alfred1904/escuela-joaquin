@@ -1,129 +1,149 @@
 /* ================================
-   Sección de contacto
+   Página de Contacto
+   - Estilos para la sección de contacto e información institucional.
+   - Usa variables globales definidas en `src/Style/index.css` (:root)
+   - GUÍA: Este archivo se enfoca en “presentación” (tarjetas, chips y jerarquía de texto).
    ================================ */
 
+/* ================================
+   Contenedor y página general
+   - Estilo base de la página (fondo general).
+   ================================ */
 .page-contacto {
-  background-color: var(--bg-1, #f7f8f9);
+  background-color: var(--bg-1, #f7f8f9); /* usa el fondo global; fallback si no existe la variable */
 }
 
+/* Panel principal de la sección de contacto
+   - GUÍA: aquí se define el “card grande” donde vive todo el contenido. */
 .contacto-section {
-  margin-top: 2rem;
-  padding: 1.5rem 1.75rem;
-  background-color: #ffffff;
-  border-radius: 18px;
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.05);
+  margin-top: 2rem; /* separa del header/navbar o del contenido anterior */
+  padding: 1.5rem 1.75rem; /* espacio interno del panel */
+  background-color: #ffffff; /* tarjeta blanca */
+  border-radius: 18px; /* redondeo amplio para look moderno */
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.05); /* sombra suave */
 }
 
-/* Texto introductorio */
+/* Texto introductorio
+   - GUÍA: párrafo inicial explicando cómo contactar o qué contiene la sección. */
 .contacto-intro {
-  margin-bottom: 1.5rem;
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: var(--text, #374151);
+  margin-bottom: 1.5rem; /* separa la intro del primer bloque */
+  font-size: 0.95rem; /* tamaño ligeramente menor al normal */
+  line-height: 1.6; /* legibilidad */
+  color: var(--text, #374151); /* texto principal (token), con fallback */
 }
 
 /* ================================
    Bloques de información
+   - Tarjetas internas dentro de la sección (ej: correos por departamento).
    ================================ */
 
 .contacto-bloque {
-  margin-top: 1.5rem;
-  padding: 1.25rem 1.5rem;
-  background-color: #ffffff;
-  border-radius: 16px;
-  border: 1px solid #e0edf3;
-  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.04);
+  margin-top: 1.5rem; /* separación entre bloques */
+  padding: 1.25rem 1.5rem; /* padding interno del bloque */
+  background-color: #ffffff; /* fondo blanco */
+  border-radius: 16px; /* redondeo consistente */
+  border: 1px solid #e0edf3; /* borde suave */
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.04); /* sombra ligera */
   transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease,
-    border-color 0.15s ease,
-    background-color 0.15s ease;
+    transform 0.15s ease, /* animación “lift” */
+    box-shadow 0.15s ease, /* refuerzo de sombra en hover */
+    border-color 0.15s ease, /* borde cambia a color marca */
+    background-color 0.15s ease; /* fondo se tiñe en hover */
 }
 
-/* Hover similar a Perfiles/Contenido */
+/* Hover similar a Perfiles/Contenido
+   - GUÍA: feedback visual para que se sienta interactivo aunque sea solo informativo. */
 .contacto-bloque:hover {
-  transform: translateY(-2px);
-  border-color: var(--accent, #0b3a5d);
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
-  background-color: #e5f7fb;
+  transform: translateY(-2px); /* sube 2px (efecto tarjeta) */
+  border-color: var(--accent, #0b3a5d); /* borde con color marca */
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08); /* sombra más visible */
+  background-color: #e5f7fb; /* tinte celeste suave */
 }
 
-/* Bloque principal de correo institucional un poco destacado */
+/* Bloque principal de correo institucional un poco destacado
+   - GUÍA: clase extra para el bloque más importante (por ahora queda blanco, pero permite personalizar). */
 .contacto-bloque-principal {
-  background-color: #ffffff;
+  background-color: #ffffff; /* mantiene estilo base; puedes diferenciarlo luego si deseas */
 }
 
-/* Texto dentro de los bloques */
+/* Texto dentro de los bloques
+   - GUÍA: aplica a párrafos o líneas de texto (correo, teléfono, etc.). */
 .contacto-texto {
-  margin: 0.15rem 0;
-  font-size: 0.9rem;
-  color: var(--text, #374151);
+  margin: 0.15rem 0; /* compacto para listas de contactos */
+  font-size: 0.9rem; /* tamaño consistente con info de contacto */
+  color: var(--text, #374151); /* token de texto con fallback */
 }
 
 /* ================================
    “Pastillas” tipo chip (títulos de bloques)
+   - Útiles para encabezados tipo “Dirección”, “Secretaría”, etc.
    ================================ */
 
 .contacto-chip-titulo,
 .contacto-chip {
-  display: inline-block;
-  padding: 0.3rem 1rem;
-  border-radius: 999px;
-  background-color: #e5f7fb;
-  color: var(--accent, #0b3a5d);
-  font-size: 0.9rem;
-  font-weight: 600;
-  margin-bottom: 0.75rem;
+  display: inline-block; /* se ajusta al contenido (no ocupa toda la línea) */
+  padding: 0.3rem 1rem; /* tamaño de la pastilla */
+  border-radius: 999px; /* pill completo */
+  background-color: #e5f7fb; /* fondo celeste suave */
+  color: var(--accent, #0b3a5d); /* texto azul marca */
+  font-size: 0.9rem; /* tamaño de chip */
+  font-weight: 600; /* resalta sin exagerar */
+  margin-bottom: 0.75rem; /* separa del texto del bloque */
 }
 
-/* Subtítulo general de la sección (línea azul debajo) */
+/* Subtítulo general de la sección (línea azul debajo)
+   - GUÍA: se usa para dividir grandes partes (ej: “Departamentos”, “Idiomas”, etc.). */
 .contacto-subtitulo-seccion {
-  margin-top: 2rem;
-  margin-bottom: 0.75rem;
-  font-size: 1.1rem;
+  margin-top: 2rem; /* separación de la sección anterior */
+  margin-bottom: 0.75rem; /* separación con contenido siguiente */
+  font-size: 1.1rem; /* jerarquía media */
   font-weight: 700;
   color: var(--accent, #0b3a5d);
-  position: relative;
-  display: inline-block;
+  position: relative; /* necesario para el ::after decorativo */
+  display: inline-block; /* hace que la línea se mida en relación al texto */
 }
 
+/* Línea decorativa debajo del subtítulo */
 .contacto-subtitulo-seccion::after {
-  content: "";
+  content: ""; /* pseudo-elemento decorativo */
   position: absolute;
   left: 0;
-  bottom: -0.3rem;
-  width: 60%;
-  height: 3px;
-  border-radius: 999px;
-  background-color: var(--accent, #0b3a5d);
+  bottom: -0.3rem; /* distancia debajo del texto */
+  width: 60%; /* largo de la línea relativo al título */
+  height: 3px; /* grosor */
+  border-radius: 999px; /* extremos redondeados */
+  background-color: var(--accent, #0b3a5d); /* color marca */
 }
 
-/* Sub-encabezados dentro de un bloque (Español / Inglés) */
+/* Sub-encabezados dentro de un bloque (Español / Inglés)
+   - GUÍA: para organizar contenido dentro de un mismo bloque. */
 .contacto-subheading {
-  margin-top: 0.75rem;
-  margin-bottom: 0.25rem;
-  font-size: 0.95rem;
+  margin-top: 0.75rem; /* separa del contenido anterior */
+  margin-bottom: 0.25rem; /* separa del contenido siguiente */
+  font-size: 0.95rem; /* un poco mayor que el texto normal */
   font-weight: 600;
-  color: var(--accent, #0b3a5d);
+  color: var(--accent, #0b3a5d); /* azul marca */
 }
 
-/* Lista de correos */
+/* Lista de correos
+   - GUÍA: asume estructura tipo <div class="contacto-lista"><p>correo</p>...</div> */
 .contacto-lista p {
-  margin: 0.15rem 0;
+  margin: 0.15rem 0; /* compacto */
   font-size: 0.9rem;
   color: var(--text, #374151);
 }
 
 /* ================================
    Responsivo
+   - Ajustes para móviles: menos padding para aprovechar espacio.
    ================================ */
 
 @media (max-width: 640px) {
   .contacto-section {
-    padding: 1.25rem 1rem;
+    padding: 1.25rem 1rem; /* reduce padding en pantallas pequeñas */
   }
 
   .contacto-bloque {
-    padding: 1rem 1.1rem;
+    padding: 1rem 1.1rem; /* reduce padding interno del bloque */
   }
 }

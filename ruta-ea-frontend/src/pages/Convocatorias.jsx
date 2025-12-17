@@ -1,15 +1,22 @@
-import React from "react";
-import PageHeader from "../components/PageHeader.jsx";
-import "../Style/indexconvocatorias.css";
+import React from "react"; // React para definir el componente funcional
+import PageHeader from "../components/PageHeader.jsx"; // Encabezado reutilizable (título + subtítulo)
+import "../Style/indexconvocatorias.css"; // Estilos específicos de la página de Convocatorias
 
+// Página: Convocatorias
+// - Componente informativo y estático (no usa estado ni consume API)
+// - Explica fases, requisitos y buenas prácticas para postular (ej. Yo Aplico)
 const Convocatorias = () => {
   return (
+    // Contenedor principal de la página
+    // Clases: "page" (layout general) + "page-convocatorias" (estilos de esta vista)
     <div className="page page-convocatorias">
+      {/* Encabezado principal de la página */}
       <PageHeader
         title="Convocatorias de Educación Abierta"
         subtitle="Resumen de fases, requisitos y buenas prácticas."
       />
 
+      {/* Texto introductorio: contextualiza el propósito de la sección */}
       <p className="intro-text">
         En esta sección se presenta, de forma sencilla, cómo funcionan las
         convocatorias en Educación Abierta (EGBA, EDAD, etc.), qué requisitos
@@ -18,8 +25,12 @@ const Convocatorias = () => {
       </p>
 
       {/* FASES DE UNA CONVOCATORIA */}
+      {/* Sección informativa en formato “card” (según tu CSS) */}
       <section className="card-section">
+        {/* Título de la sección */}
         <h2>Fases típicas de una convocatoria</h2>
+
+        {/* Lista ordenada: describe el flujo típico de una convocatoria */}
         <ol>
           <li>
             <strong>1. Publicación de la convocatoria</strong> – La institución
@@ -56,9 +67,11 @@ const Convocatorias = () => {
       </section>
 
       {/* REQUISITOS FRECUENTES */}
+      {/* Sección informativa: agrupa requisitos típicos por categoría */}
       <section className="card-section">
         <h2>Requisitos frecuentes en las convocatorias</h2>
 
+        {/* Sub-sección: datos personales */}
         <h3>1. Datos personales</h3>
         <ul>
           <li>Nombre completo y número de identificación (cédula o pasaporte).</li>
@@ -66,6 +79,7 @@ const Convocatorias = () => {
           <li>Dirección de residencia y medio de contacto (teléfono, correo electrónico).</li>
         </ul>
 
+        {/* Sub-sección: información académica */}
         <h3>2. Información académica</h3>
         <ul>
           <li>Nivel académico actual (II ciclo, III ciclo, bachillerato, etc.).</li>
@@ -73,6 +87,7 @@ const Convocatorias = () => {
           <li>Historial de estudios o certificaciones anteriores.</li>
         </ul>
 
+        {/* Sub-sección: documentos adjuntos típicos */}
         <h3>3. Documentos que suelen solicitar</h3>
         <ul>
           <li>Copia de la cédula o documento de identidad vigente.</li>
@@ -81,6 +96,7 @@ const Convocatorias = () => {
           <li>Documentos en formato PDF, legibles y completos.</li>
         </ul>
 
+        {/* Sub-sección: condiciones particulares que pueden variar */}
         <h3>4. Condiciones específicas de cada convocatoria</h3>
         <ul>
           <li>Edad mínima o máxima según el programa.</li>
@@ -90,6 +106,7 @@ const Convocatorias = () => {
       </section>
 
       {/* BUENAS PRÁCTICAS PARA YO APLICO */}
+      {/* Sección: recomendaciones para reducir rechazos en plataformas */}
       <section className="card-section">
         <h2>Buenas prácticas para evitar rechazos en Yo Aplico</h2>
         <ul>
@@ -124,6 +141,7 @@ const Convocatorias = () => {
       </section>
 
       {/* ORIENTACIÓN GENERAL */}
+      {/* Sección: acciones sugeridas si la postulación fue rechazada */}
       <section className="card-section">
         <h2>¿Qué hacer si mi postulación es rechazada?</h2>
         <ul>
@@ -134,6 +152,8 @@ const Convocatorias = () => {
             orientación para recibir apoyo en el proceso.
           </li>
         </ul>
+
+        {/* Cierre de sección: objetivo pedagógico del contenido */}
         <p>
           El objetivo de esta sección es que el estudiantado y las personas
           interesadas en Educación Abierta tengan claridad sobre el proceso y
@@ -144,4 +164,10 @@ const Convocatorias = () => {
   );
 };
 
-export default Convocatorias;
+export default Convocatorias; // Exporta la página para usarla en el Routing (ruta /convocatorias)
+
+
+
+
+
+
